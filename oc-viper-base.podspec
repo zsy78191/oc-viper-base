@@ -32,11 +32,19 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'oc-viper-base/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'oc-viper-base' => ['oc-viper-base/Assets/*.png']
-  # }
+  s.resource_bundles = {
+    'oc-viper-base' => ['oc-viper-base/Assets/*']
+  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'ReactiveObjC'
+  s.dependency 'MGJRouter'
+  s.dependency 'PromiseKit'
+  s.dependency 'SVProgressHUD'
+  s.dependency 'IQKeyboardManager'
+  s.dependency 'STPopup'
+  s.dependency 'MagicalRecord'
+  s.dependency 'Classy'
+  s.dependency 'Masonry'
 end

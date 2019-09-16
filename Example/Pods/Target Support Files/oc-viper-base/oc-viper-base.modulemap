@@ -1,0 +1,6 @@
+framework module oc_viper_base {
+  umbrella header "oc-viper-base-umbrella.h"
+
+  export *
+  module * { export * }
+}

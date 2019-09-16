@@ -1,0 +1,6 @@
+framework module Classy {
+  umbrella header "Classy-umbrella.h"
+
+  export *
+  module * { export * }
+}

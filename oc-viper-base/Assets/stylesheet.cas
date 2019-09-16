@@ -1,0 +1,157 @@
+/* 
+  stylesheet.cas.strings
+  viper-base
+
+  Created by 张超 on 2019/9/6.
+  Copyright © 2019 orzer. All rights reserved.
+*/
+
+$bg-color = #f7f7f7
+$bg-color2 = #f7f7f7
+$main-text-color = #020502
+$sub-text-color = #0a0a0a
+$light-text-color = #a1a1a1
+$main-tint-color = #169898
+$sub-tint-color = #C4F0F0
+$warning-tint-color = #E6A23C
+$main-font = PingFangSC-Light
+$sub-font = TsangerXuanSan04-W02
+// $font3 = TsangerXuanSan04-W02
+
+^ UILabel.titleLabel {
+    text-color $main-text-color
+    font $font3 24
+ }
+
+^ UILabel.contentLabel {
+    text-color $sub-text-color
+    font $sub-font 18
+}
+
+UILabel.tiplabel {
+    text-color $light-text-color
+    font $main-font 24
+}
+
+// 所有的 UITableViewCell 与子类
+^ UITableViewCell {
+    
+    // 背景颜色
+    background-color $bg-color
+
+    // 子View中StyleClass为selectedBackgroundView的
+    ^ UIView.selectedBackgroundView {
+        background-color $main-tint-color
+    }
+    
+    // 子View中的UILabel 及子类
+    ^ UILabel {
+        // 字体颜色
+        text-color $main-text-color
+        font $font3 18
+
+        // StyleClass为 subtitle的
+        &.subtitle {
+            text-color gray
+            font $main-font 14
+        }
+    }
+}
+
+^ UITableView {
+    background-color $bg-color
+    separatorColor #dddddd
+    separatorInset 0 , 0 , 0 , 0
+}
+
+^ VB_Presenter > UIView {
+    background-color $bg-color2
+}
+
+^ UIButton {
+    tint-color $main-tint-color
+    &.primary {
+        tint-color $main-tint-color
+    }
+    &.warning {
+        tint-color $warning-tint-color
+    }
+}
+
+^ UITextField {
+    text-color $main-text-color
+    font $main-font 14
+}
+
+^ UISlider {
+    tint-color $main-tint-color
+}
+
+^ UIProgressView {
+    tint-color $main-tint-color
+}
+
+^ UIStepper {
+    tint-color $main-tint-color
+}
+
+^ UISegmentedControl {
+    tint-color $main-tint-color
+}
+
+^ UISwitch {
+    // tint-color $main-tint-color
+    on-tint-color $main-tint-color
+}
+
+^ UINavigationBar {
+    shadow-image bar0
+    bar-tint-color $main-tint-color
+    tint-color white
+    title-text-attributes: @{
+        font: $main-font 21
+        foreground-color: white
+    }
+    large-title-text-attributes:@{
+        font $main-font 36
+        foreground-color white
+    }
+    ^ UIButton {
+       tint-color white
+    }
+}
+
+^ UIToolbar {
+    bar-tint-color $main-tint-color
+    tint-color white
+    shadow-image bar0
+    ^ UIButton {
+       tint-color white
+    }
+}
+
+^ UIPageControl {
+    currentPageIndicatorTintColor $main-tint-color
+    pageIndicatorTintColor $sub-tint-color
+}
+
+^ UIBarButtonItem {
+    title-text-attributes[state:normal]:@{
+        font $main-font 17
+    }
+    title-text-attributes[state:highlighted]:@{
+        font $main-font 17
+    }
+    title-text-attributes[state:disabled]:@{
+        font $main-font 17
+    }
+}
+
+^ UIButton.PinBtn {
+    tint-color #cdcdcd
+    title-color[state:normal] #3e3e3e
+    title-color[state:highlighted] #000000
+    title-label @{
+        font $main-font 18
+    }
+}

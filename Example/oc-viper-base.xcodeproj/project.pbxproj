@@ -39,8 +39,8 @@
 /* Begin PBXFileReference section */
 		154E94AB9BB9DAF023DBD01D /* Pods-oc-viper-base_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oc-viper-base_Example.debug.xcconfig"; path = "Target Support Files/Pods-oc-viper-base_Example/Pods-oc-viper-base_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		18E64E0781C377DD178F6DED /* Pods-oc-viper-base_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oc-viper-base_Tests.release.xcconfig"; path = "Target Support Files/Pods-oc-viper-base_Tests/Pods-oc-viper-base_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		1A9D2AFF8DAFFAA5F321011F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		536A1983E3739F192827A9C6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		1A9D2AFF8DAFFAA5F321011F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		536A1983E3739F192827A9C6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		582E0D30B4CEF84543A7E2B6 /* Pods_oc_viper_base_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_oc_viper_base_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C9BD68D0EEBACB7E132E494 /* Pods-oc-viper-base_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oc-viper-base_Example.release.xcconfig"; path = "Target Support Files/Pods-oc-viper-base_Example/Pods-oc-viper-base_Example.release.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* oc-viper-base_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "oc-viper-base_Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,7 +63,7 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		7394AFE32FBC6C2B1D9D9505 /* oc-viper-base.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = "oc-viper-base.podspec"; path = "../oc-viper-base.podspec"; sourceTree = "<group>"; };
+		7394AFE32FBC6C2B1D9D9505 /* oc-viper-base.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "oc-viper-base.podspec"; path = "../oc-viper-base.podspec"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A95E51FA2BB9FC4C78C1498C /* Pods-oc-viper-base_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oc-viper-base_Tests.debug.xcconfig"; path = "Target Support Files/Pods-oc-viper-base_Tests/Pods-oc-viper-base_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		C244D203BF23CE3521DB2649 /* Pods_oc_viper_base_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_oc_viper_base_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -193,7 +193,6 @@
 				A95E51FA2BB9FC4C78C1498C /* Pods-oc-viper-base_Tests.debug.xcconfig */,
 				18E64E0781C377DD178F6DED /* Pods-oc-viper-base_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -249,6 +248,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = zsy78191;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = ZLQPGKAQFY;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -259,6 +261,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -303,10 +306,28 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-oc-viper-base_Example/Pods-oc-viper-base_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Classy/Classy.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/MGJRouter/MGJRouter.framework",
+				"${BUILT_PRODUCTS_DIR}/MagicalRecord/MagicalRecord.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework",
+				"${BUILT_PRODUCTS_DIR}/STPopup/STPopup.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/oc-viper-base/oc_viper_base.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Classy.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MGJRouter.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MagicalRecord.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveObjC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/STPopup.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/oc_viper_base.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -519,6 +540,7 @@
 			baseConfigurationReference = 154E94AB9BB9DAF023DBD01D /* Pods-oc-viper-base_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZLQPGKAQFY;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "oc-viper-base/oc-viper-base-Prefix.pch";
 				INFOPLIST_FILE = "oc-viper-base/oc-viper-base-Info.plist";
@@ -535,6 +557,7 @@
 			baseConfigurationReference = 5C9BD68D0EEBACB7E132E494 /* Pods-oc-viper-base_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZLQPGKAQFY;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "oc-viper-base/oc-viper-base-Prefix.pch";
 				INFOPLIST_FILE = "oc-viper-base/oc-viper-base-Info.plist";
