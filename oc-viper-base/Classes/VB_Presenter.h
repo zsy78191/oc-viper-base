@@ -12,21 +12,26 @@
 @class VB_Component;
 @protocol VB_ComponentTypePopup_Protocol;
 
+
 typedef enum : NSUInteger {
-    VBStyleInherit,
-    VBStyleNone,
-    VBStyleUse,
+    VBStyleInherit,  /// 继承前者
+    VBStyleNone,     /// 不使用
+    VBStyleUse,      /// 使用
 } VBStyle;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol VB_HAS_InteractorProtocol <NSObject>
 
+/// 继承修改Interactoer的类型
 - (Class)interactorClass;
+
+/// interactor对象，一个Presenter只有一个Interactor
 @property (nonatomic, strong, readonly) __kindof VB_Interactor* interactor;
 
 @end
 
+/// 视图导航方法
 @protocol VB_Prensenter_Action_Protocol <NSObject>
 
 - (void)push:(__kindof UIViewController*)vc;
@@ -39,10 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
-/**
- Alert协议
- */
+/// Alert
 @protocol VB_Prensenter_Alert_Protocol <NSObject>
 
 - (AnyPromise*)alert:(NSString*)msg;
@@ -57,10 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
               sender:(id _Nullable)sender;
 @end
 
-
-/**
- HUD协议
- */
+/// HUD
 @protocol VB_Prensenter_HUD_Protocol <NSObject>
 
 - (void)show:(NSString*)msg;
@@ -70,10 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
-/**
- Popup协议
- */
+///  Popup
 @protocol VB_Prensenter_Popup_Protocol <NSObject>
 
 - (void)popup:(__kindof UIViewController*)vc;
@@ -86,36 +82,43 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
-
+/// 组件
 @protocol VB_USE_Component <NSObject>
 
+/// 加载组件
+/// @param component 组件对象
 - (void)setupComponent:(__kindof VB_Component*)component;
 
 @end
 
-@interface VB_Presenter : UIViewController <VB_HAS_InteractorProtocol, VB_Prensenter_Action_Protocol, VB_USE_Component, VB_Prensenter_Alert_Protocol,VB_Prensenter_HUD_Protocol,VB_Prensenter_Popup_Protocol>
+@interface VB_Presenter : UIViewController <VB_HAS_InteractorProtocol,VB_Prensenter_Action_Protocol, VB_USE_Component, VB_Prensenter_Alert_Protocol,VB_Prensenter_HUD_Protocol,VB_Prensenter_Popup_Protocol>
 
-//- (void)binding:(id)obj keypath:(NSString*)path toObj:(__kindof UIControl*)obj2 keypath:(NSString*)path2;
+
+/// 双向绑定
+/// @param obj 对象
+/// @param path 属性
+/// @param channel 控件的RACChannel
 - (void)binding:(id)obj keypath:(NSString*)path toChannel:(RACChannelTerminal*)channel;
 
-/**
- 是否使用工具栏，默认VBStyleInherit
- */
+
+/// 是否使用工具条，默认VBStyleInherit
 @property (nonatomic, assign) VBStyle toolbarStyle;
 
 
-/**
- 是否使用导航栏，默认VBStyleInherit
- */
+
+/// 是否使用导航栏，默认VBStyleInherit
 @property (nonatomic, assign) VBStyle navibarStyle;
 
+
+/// 请继承这个方法加载组件
 - (void)loadComponents NS_REQUIRES_SUPER;
-- (void)createDatasSender:(void (^)(NSString* key, id<RACSubscriber>subcriber))channel;
-- (void)dataWithKey:(NSString*)key getter:(void (^)(id data))getter;
-- (AnyPromise*)dataWithKey:(NSString*)key;
-- (AnyPromise*)callbackData;
-- (void)callback:(id)data;
+
+
+/// 注册外部数据，一般外部调用
+@property (nonatomic, strong, nullable) void (^needLoadData)(NSString* key, id<RACSubscriber>subcriber);
+
+/// 注册外部数据，一般外部调用
+@property (nonatomic, strong, nullable) id (^needData)(NSString* key);
 
 @end
 

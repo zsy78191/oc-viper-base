@@ -69,8 +69,8 @@
         [nv setToolbarHidden:self.toolBarHidden];
     }
     
-    CGFloat margin =  UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad? 120 : 30;
-    CGFloat margin_top =  UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad? 0 : 30;
+    CGFloat margin = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad? 120 : 30;
+    CGFloat margin_top =  [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad? 0 : 30;
     vc.contentSizeInPopup = CGSizeMake([self.presenter view].frame.size.width - margin, [self.presenter view].frame.size.height - margin - margin_top*2);
     vc.landscapeContentSizeInPopup = CGSizeMake([self.presenter view].frame.size.width - margin, [self.presenter view].frame.size.height - margin - margin_top*2);
 //    NSLog(@"$…………");

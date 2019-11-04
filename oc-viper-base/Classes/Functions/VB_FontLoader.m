@@ -143,13 +143,19 @@
     [content enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString* l = [obj lowercaseString];
         if ([l hasSuffix:@"otf"] || [l hasSuffix:@"ttf"]) {
-            NSURL* file = [url URLByAppendingPathComponent:obj];
+            NSString* file = [[url URLByAppendingPathComponent:obj] path];
 //            NSArray* load = [[self class] registerFontsAtPath:[file path]];
 //            NSLog(@"%@",load);
             [array addObject:file];
         }
     }];
-    return [[self class] registerFontsAtPaths:array];
+    NSMutableArray* final = [NSMutableArray array];
+//    return [[self class] registerFontsAtPaths:array];
+    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+         NSArray* t = [[self class] registerFontsAtPath:obj];
+        [final addObjectsFromArray:t];
+    }];
+    return [final copy];
 }
 
 @end

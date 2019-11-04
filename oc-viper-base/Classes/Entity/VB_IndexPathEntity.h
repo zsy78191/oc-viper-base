@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, strong) NSString* subTitle;
 @property (nonatomic, strong) NSString* identifier;
+@property (nonatomic, strong) NSString* hostName;
+
 
 @property (nonatomic, strong) id data;
 

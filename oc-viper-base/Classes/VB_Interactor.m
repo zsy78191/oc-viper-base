@@ -10,6 +10,7 @@
 #import "VB_Component.h"
 #import "VB_Presenter.h"
 
+
 @implementation VB_Interactor
 
 - (id)entityForKey:(NSString *)key
@@ -141,34 +142,6 @@
 - (void)dealloc
 {
     NSLog(@"** %@ %s",[self class],__func__);
-}
-
-- (void)dataWithKey:(NSString *)key getter:(void (^)(id _Nonnull))getter
-{
-    if (self.presenter) {
-        [self.presenter dataWithKey:key getter:getter];
-    } else {
-        NSLog(@"VBWarning: dataWithKey方法依赖于presneter");
-    }
-}
-
-- (AnyPromise *)dataWithKey:(NSString *)key
-{
-    if (self.presenter) {
-        return [self.presenter dataWithKey:key];
-    } else {
-        NSLog(@"VBWarning: dataWithKey方法依赖于presneter");
-    }
-    return nil;
-}
-
-- (void)callback:(id)data
-{
-    if (self.presenter) {
-        [self.presenter callback:data];
-    } else {
-        NSLog(@"VBWarning: callback方法依赖于presneter");
-    }
 }
 
 - (void)action:(id<RACSubscriber>)subscriber

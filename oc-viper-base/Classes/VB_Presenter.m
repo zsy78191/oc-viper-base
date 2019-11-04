@@ -24,11 +24,6 @@
 @property (nonatomic, assign) BOOL originNavibarHidden;
 @property (nonatomic, assign) BOOL originToolbarHidden;
 
-@property (nonatomic, strong) RACSignal* dataTransSignal;
-@property (nonatomic, strong) RACSignal* dataGetSignal;
-@property (nonatomic, strong) id <RACSubscriber> dataSubscriber;
-@property (nonatomic, strong) RACSignal* callbackDataSignal;
-@property (nonatomic, strong) id <RACSubscriber> callbackDataSubscriber;
 @end
 
 @implementation VB_Presenter
@@ -63,9 +58,6 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSLog(@"* %@",[self valueForKey:@"retainCount"]);
-    });
 }
 
 - (void)binding:(id)obj keypath:(NSString*)path toObj:(__kindof UIControl*)obj2 keypath:(NSString*)path2 {
@@ -374,13 +366,6 @@
 
 - (void)dealloc
 {
-    [self.dataSubscriber sendCompleted];
-    self.dataSubscriber = nil;
-    
-//    [self.callbackDataSubscriber sendCompleted];
-//    self.callbackDataSubscriber = nil;
-//    [self.getters removeAllObjects];
-    
     NSLog(@"**** %@ %s",[self class],__func__);
 }
 
@@ -389,105 +374,5 @@
     [super setEditing:editing animated:animated];
     
 }
-
-- (void)createDatasSender:(void (^)(NSString * _Nonnull, id<RACSubscriber> _Nonnull))channel
-{
-    self.dataTransSignal = [self.dataGetSignal flattenMap:^__kindof RACSignal * _Nullable(NSString*  _Nullable key) {
-       
-        return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
-            
-            channel(key,subscriber);
-            
-            return [RACDisposable disposableWithBlock:^{
-                
-            }];
-        }];
-    }];
-    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        NSLog(@"%@",self.dataTransSignal);
-//        NSLog(@"%@",self.dataSubscriber);
-//    });
-}
-
-- (RACSignal *)dataGetSignal
-{
-    if (!_dataGetSignal) {
-        __weak typeof(self) weakself = self;
-        _dataGetSignal = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
-            weakself.dataSubscriber = subscriber;
-            return [RACDisposable disposableWithBlock:^{
-                
-            }];
-        }];
-    }
-    return _dataGetSignal;
-}
-
-- (void)dataWithKey:(NSString *)key getter:(void (^)(id _Nonnull))getter
-{
-    if (self.dataTransSignal) {
-        [self.dataTransSignal subscribeNext:^(id  _Nullable x) {
-            if (getter) {
-                getter(x);
-            }
-        } error:^(NSError * _Nullable error) {
-            NSLog(@"%@",error);
-        }];
-    }
-//    [self.getters setObject:getter forKey:key];
-    [self.dataSubscriber sendNext:key];
-}
-
-- (AnyPromise *)dataWithKey:(NSString *)key
-{
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull r) {
-        
-        if (self.dataTransSignal) {
-            [self.dataTransSignal subscribeNext:^(id  _Nullable x) {
-                r(x);
-            } error:^(NSError * _Nullable error) {
-                r(error);
-            }];
-        } else {
-            r([NSError errorWithDomain:@"VBErrorDomain" code:213 userInfo:@{NSLocalizedDescriptionKey:@"没有执行过createDatasSender方法"}]);
-        }
-        [self.dataSubscriber sendNext:key];
-    }];
-}
-
-- (RACSignal *)callbackDataSignal
-{
-    if (!_callbackDataSignal) {
-        __weak typeof(self) weakself = self;
-        _callbackDataSignal = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
-            weakself.callbackDataSubscriber = subscriber;
-            return [RACDisposable disposableWithBlock:^{
-                [weakself.callbackDataSubscriber sendCompleted];
-                weakself.callbackDataSubscriber = nil;
-            }];
-        }];
-    }
-    return _callbackDataSignal;
-}
-
-- (AnyPromise *)callbackData
-{
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull r) {
-        [self.callbackDataSignal subscribeNext:^(id  _Nullable x) {
-            r(x);
-        } error:^(NSError * _Nullable error) {
-            r(error);
-        }];
-    }];
-}
-
-- (void)callback:(id)data
-{
-    if (self.callbackDataSubscriber) {
-        [self.callbackDataSubscriber sendNext:data];
-    }
-}
-
 
 @end
