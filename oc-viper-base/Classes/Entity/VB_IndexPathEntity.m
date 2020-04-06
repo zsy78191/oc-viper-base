@@ -15,6 +15,8 @@
     self = [super init];
     if (self) {
         self.identifier = @"cell";
+        self.selectionStyle = UITableViewCellSelectionStyleDefault;
+        self.accessoryType = UITableViewCellAccessoryNone;
     }
     return self;
 }
@@ -25,6 +27,11 @@
         _childrens = [[NSMutableArray alloc] init];
     }
     return _childrens;
+}
+
+- (NSString *)description
+{
+    return [[super description] stringByAppendingFormat:@"%@",[self.childrens componentsJoinedByString:@"|"]];
 }
 
 @end

@@ -38,6 +38,11 @@
     
 }
 
+- (void)addObjects:(NSArray *)objs
+{
+    
+}
+
 - (void)insertObject:(__kindof VB_IndexPathEntity*)obj at:(NSUInteger)idx;
 {
     
@@ -73,10 +78,33 @@
     return [self.fetch fetchedObjects].count;
 }
 
+- (NSUInteger)sectionsCount
+{
+    return [self.fetch sections].count;
+}
+
+- (NSUInteger)countForSection:(NSUInteger)section
+{
+    id <NSFetchedResultsSectionInfo> info  = [[self.fetch sections] objectAtIndex:section];
+    return info.numberOfObjects;
+}
+
+- (NSString *)titleForSection:(NSUInteger)section
+{
+    id <NSFetchedResultsSectionInfo> info  = [[self.fetch sections] objectAtIndex:section];
+    return [info name];
+    
+}
+
 - (__kindof VB_IndexPathEntity*)objectAtIndexPath:(NSIndexPath*)path;
 {
+    return [self entityWithOrigin:[self.fetch objectAtIndexPath:path]];
+}
+
+- (VB_IndexPathEntity *)entityWithOrigin:(id)entity
+{
     VB_IndexPathEntity* v = [[VB_IndexPathEntity alloc] init];
-    v.data = [self.fetch objectAtIndexPath:path];
+    v.data = entity;
     return v;
 }
 

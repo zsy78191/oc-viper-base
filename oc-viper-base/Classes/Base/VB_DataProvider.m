@@ -16,5 +16,30 @@
     NSLog(@"%s",__func__);
 }
 
+- (VB_IndexPathEntity *)entityWithOrigin:(id)entity
+{
+    return entity;
+}
+
+- (NSUInteger)sectionsCount
+{
+    return 1;
+}
+
+- (NSUInteger)count
+{
+    return [self countForSection:0];
+}
+
+- (NSString *)titleForSection:(NSUInteger)section
+{
+    return nil;
+}
+
+- (NSString *)titleForSectionFooter:(NSUInteger)section
+{
+    return nil;
+}
+
 
 @end

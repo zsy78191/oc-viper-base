@@ -7,6 +7,7 @@
 //
 
 #import "VB_Entity.h"
+#import "NSObject+Runtime.h"
 
 @interface VB_Entity () {
     
@@ -33,5 +34,26 @@
 {
     return [self.extraData valueForKey:key];
 }
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    NSMutableDictionary* d = [@{} mutableCopy];
+    Class c = [self class];
+    while (![NSStringFromClass(c) isEqualToString:@"VB_Entity"]) {
+        [[self vb_propertysNameWithClass:c] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [d setValue:obj forKey:obj];
+        }];
+        c = [c superclass];
+    }
+    return d;
+}
+
+- (NSDictionary*)dict;
+{
+    return [MTLJSONAdapter JSONDictionaryFromModel:self error:nil];
+}
+
+
+
+ 
 
 @end

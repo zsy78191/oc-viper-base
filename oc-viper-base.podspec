@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'oc-viper-base'
-  s.version          = '0.1.2'
-  s.summary          = 'A short description of oc-viper-base.'
+  s.version          = '0.1.3'
+  s.summary          = '一个OC编写的类VIPER框架'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+一个OC编写的类VIPER框架，用于快速构架iOS应用，或桥接各种现成功能模块。
                        DESC
 
   s.homepage         = 'https://github.com/zsy78191/oc-viper-base'
@@ -45,6 +45,8 @@ TODO: Add long description of the pod here.
   s.dependency 'IQKeyboardManager'
   s.dependency 'STPopup'
   s.dependency 'MagicalRecord'
-  s.dependency 'Classy'
+  # s.dependency 'Classy'
   s.dependency 'Masonry'
+  s.dependency 'RegexKitLite'
+  s.dependency 'Mantle'
 end

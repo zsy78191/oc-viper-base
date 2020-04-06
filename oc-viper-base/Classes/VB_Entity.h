@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+@import Mantle;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface VB_Entity : NSObject
+@interface VB_Entity : MTLModel <MTLJSONSerializing>
+
+- (NSDictionary*)dict;
 
 @end
 

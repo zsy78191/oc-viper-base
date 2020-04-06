@@ -14,11 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface VB_TableviewComponent : VB_Component <VB_ComponentTypeView_Protocol>
 
 - (void)registCell:(Class)className forIdentifier:(NSString*)identifer;
+- (void)registHeader:(Class)className forIdentifier:(NSString*)identifer;
 
 @property (nonatomic, assign) BOOL useDelete;
 @property (nonatomic, assign) BOOL useInsert;
 
-- (void)setEditing:(BOOL)e animated:(BOOL)a;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 @property (nonatomic, assign) BOOL editing;
 
 @end

@@ -25,7 +25,7 @@
         @weakify(self);
         self.finishBlock = ^(NSString * _Nonnull file, id<RACSubscriber>  _Nonnull subscriber) {
             @strongify(self);
-            [self.presenter show:@"VB_FileSelectorInteractor 没有设置 FinishBlock"];
+            [self.presenter hudShow:@"VB_FileSelectorInteractor 没有设置 FinishBlock"];
             [subscriber sendCompleted];
         };
     }

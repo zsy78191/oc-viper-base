@@ -12,8 +12,9 @@
 #import "VB_Interactor.h"
 #import "VBCollectionChange.h"
 #import "UITableViewCell+VB.h"
+#import "NSObject+PromiseAction.h"
 @import Masonry;
-@import Classy;
+//@import Classy;
 
 @interface VB_TableviewComponent () <UITableViewDataSource, UITableViewDelegate>
 {
@@ -48,16 +49,16 @@
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.view = tableView;
     tableView.backgroundView = [[UIView alloc] initWithFrame:tableView.bounds];
-    self.tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
-    self.tipLabel.text = @"NO Data";
-    self.tipLabel.cas_styleClass = @"tiplabel";
-    [tableView.backgroundView addSubview:self.tipLabel];
-    self.tipLabel.center = tableView.center;
-    
-    [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(tableView.backgroundView);
-        make.centerY.equalTo(tableView.backgroundView);
-    }];
+//    self.tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
+//    self.tipLabel.text = @"";
+//    self.tipLabel.cas_styleClass = @"tiplabel";
+//    [tableView.backgroundView addSubview:self.tipLabel];
+//    self.tipLabel.center = tableView.center;
+//
+//    [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(tableView.backgroundView);
+//        make.centerY.equalTo(tableView.backgroundView);
+//    }];
     tableView.delegate = self;
     tableView.dataSource = self;
     [tableView setTableFooterView:[UIView new]];
@@ -74,7 +75,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [self.dataSource sectionsCount];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [self.dataSource titleForSection:section];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    return [self.dataSource titleForSectionFooter:section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -83,13 +94,13 @@
     if (self.dataSource) {
         self.empty = [self.dataSource count] == 0 ? YES : NO;
     }
-    return self.dataSource? [self.dataSource count] : 0;
+    return self.dataSource? [self.dataSource countForSection:section] : 0;
 }
 
 - (void)setEmpty:(BOOL)empty
 {
     _empty = empty;
-    self.tipLabel.hidden = !empty;
+//    self.tipLabel.hidden = !empty;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -104,6 +115,14 @@
 {
     cell.textLabel.text = entity.title;
     cell.detailTextLabel.text = entity.subTitle;
+    if (entity.icon) {
+        cell.imageView.image = [UIImage imageNamed:entity.icon];
+        if (!cell.imageView.image) {
+            cell.imageView.image = [UIImage systemImageNamed:entity.icon];
+        }
+    }
+    cell.accessoryType = entity.accessoryType;
+    cell.selectionStyle = entity.selectionStyle;
     if ([cell respondsToSelector:@selector(loadData:)]) {
         [cell loadData:entity];
     }
@@ -116,8 +135,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.interactor.paramPromise(@"tableViewDidSelect",indexPath).then(^{
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSLog(@"%s",__func__);
+    self.interactor.paramPromise(@"tableViewDidSelect",indexPath).then(^(id needUpdate){
+        if([needUpdate boolValue]) {
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
     }).catch(^ (NSError* e){
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         NSLog(@"%@",e);
@@ -134,6 +158,13 @@
     [self.view reloadData];
 }
 
+- (void)reloadDataAtIndexPath:(NSIndexPath *)path
+{
+    if ([self.view cellForRowAtIndexPath:path]) {
+        [self.view reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+
 - (VB_ComponentType)type
 {
     return VB_ComponentTypeView;
@@ -147,6 +178,17 @@
         [self.view registerNib:nib forCellReuseIdentifier:identifer];
     } else {
         [self.view registerClass:className forCellReuseIdentifier:identifer];
+    }
+}
+
+- (void)registHeader:(Class)className forIdentifier:(NSString *)identifer
+{
+    NSString* nibName = NSStringFromClass(className);
+    UINib* nib = [UINib nibWithNibName:nibName bundle:[NSBundle mainBundle]];
+    if (nib) {
+        [self.view registerNib:nib forHeaderFooterViewReuseIdentifier:identifer];
+    } else {
+        [self.view registerClass:className forHeaderFooterViewReuseIdentifier:identifer];
     }
 }
 
@@ -222,5 +264,7 @@
     [self.view setEditing:e animated:a];
     self.editing = e;
 }
+
+
 
 @end

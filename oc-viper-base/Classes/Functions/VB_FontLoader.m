@@ -10,6 +10,7 @@
 #import "VB_FontLoader.h"
 #import "VBCollectionChange.h"
 @import CoreText;
+@import PromiseKit;
 
 @implementation VB_ImportFontEntity
 - (NSMutableArray *)importedFonts
@@ -19,6 +20,9 @@
     }
     return _importedFonts;
 }
+@end
+
+@implementation VB_Font
 @end
 
 @implementation VB_FontLoader
@@ -63,6 +67,15 @@
         return nil;
     }
     return nil;
+}
+
++ (AnyPromise *)unregistFont:(NSString *)file
+{
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull r) {
+        CFErrorRef cfDe_RegisterError;
+        CTFontManagerUnregisterFontsForURL((__bridge CFURLRef)[NSURL fileURLWithPath:file], kCTFontManagerScopeNone, &cfDe_RegisterError);
+        r(@YES);
+    }];
 }
 
 + (NSArray *)registerFontsAtPaths:(NSArray<NSURL *> *)fontFilePaths
@@ -135,27 +148,67 @@
     return fontString;
 }
 
-+ (NSArray*)autoRegistFont
++ (AnyPromise*)fontsURL {
+    NSURL* url = [[NSURL fileURLWithPath:[@"~/Documents" stringByExpandingTildeInPath]] URLByAppendingPathComponent:@"fonts"];
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull r) {
+          r(@([[NSFileManager defaultManager] fileExistsAtPath:[url path]]));
+      }].then(^(id exist){
+          if(![exist boolValue]) {
+              NSError* error;
+              [[NSFileManager defaultManager] createDirectoryAtPath:[url path] withIntermediateDirectories:NO attributes:nil error:&error];
+              if (error) {
+                  @throw error;
+              }
+              return url;
+          } else {
+              return url;
+          }
+      });
+}
+
++ (AnyPromise *)importFont:(NSURL *)url
 {
-    NSURL* url = [NSURL fileURLWithPath:[@"~/Documents" stringByExpandingTildeInPath]];
-    NSArray* content = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[url path] error:nil];
-    NSMutableArray* array = [NSMutableArray array];
-    [content enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString* l = [obj lowercaseString];
-        if ([l hasSuffix:@"otf"] || [l hasSuffix:@"ttf"]) {
-            NSString* file = [[url URLByAppendingPathComponent:obj] path];
-//            NSArray* load = [[self class] registerFontsAtPath:[file path]];
-//            NSLog(@"%@",load);
-            [array addObject:file];
+    return [[self class] fontsURL]
+    .then(^(NSURL* to) {
+        NSString* fileName = [url lastPathComponent];
+        NSError* e;
+        NSURL* toURL = [to URLByAppendingPathComponent:fileName];
+        [[NSFileManager defaultManager] copyItemAtURL:url toURL:toURL error:&e];
+        if (e) {
+            @throw e;
         }
-    }];
-    NSMutableArray* final = [NSMutableArray array];
-//    return [[self class] registerFontsAtPaths:array];
-    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-         NSArray* t = [[self class] registerFontsAtPath:obj];
-        [final addObjectsFromArray:t];
-    }];
-    return [final copy];
+        return toURL;
+    });
+}
+
++ (AnyPromise*)autoRegistFont
+{
+  return [[self class] fontsURL]
+  .thenInBackground(^ (NSURL* url){
+        NSArray* content = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[url path] error:nil];
+        NSMutableArray* array = [NSMutableArray array];
+        [content enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString* l = [obj lowercaseString];
+            if ([l hasSuffix:@"otf"] || [l hasSuffix:@"ttf"]) {
+                NSString* file = [[url URLByAppendingPathComponent:obj] path];
+                [array addObject:file];
+            }
+        }];
+        return array;
+    }).then(^ (NSArray* content) {
+        NSMutableArray* final = [NSMutableArray array];
+        [content enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSArray* t = [[self class] registerFontsAtPath:obj];
+            if (t.count > 0) {
+                VB_Font* font = [[VB_Font alloc] init];
+                font.title = [t firstObject];
+                font.file = obj;
+                [final addObject:font];
+            }
+//            [final addObjectsFromArray:t];
+        }];
+        return [final copy];
+    });
 }
 
 @end

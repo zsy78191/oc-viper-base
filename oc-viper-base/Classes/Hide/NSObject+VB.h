@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 void INN(id x,id this,void (^y)(id this,id data));
 void IN(id x,id this, id (^iSNil)(void) ,void (^y)(id this,id data));
 
-@interface NSObject (VB) {
+@interface NSObject (VB2) {
     
 }
 

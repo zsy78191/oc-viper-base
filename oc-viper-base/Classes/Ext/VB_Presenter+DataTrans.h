@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface VB_Presenter (DataTrans)
 
 @property (nonatomic, strong) AnyPromise* (^loadData)(NSString* key);
-
 @property (nonatomic, strong, readonly) _Nullable id (^getData)(NSString* key);
 
 @end

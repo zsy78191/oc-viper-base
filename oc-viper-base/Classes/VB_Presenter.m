@@ -20,6 +20,7 @@
 @property (nonatomic, strong) VB_Component <VB_ComponentTypeAlert_Protocol>* alertComponent;
 @property (nonatomic, strong) VB_Component <VB_ComponentTypeHUD_Protocol>* hudComponent;
 @property (nonatomic, strong) VB_Component <VB_ComponentTypePopup_Protocol>* popupComponent;
+@property (nonatomic, strong) VB_Component <VB_ComponentTypePicker_Protocol>* pickerComponent;
 
 @property (nonatomic, assign) BOOL originNavibarHidden;
 @property (nonatomic, assign) BOOL originToolbarHidden;
@@ -53,6 +54,8 @@
 - (void)viewDidLoad {
     [self loadComponents];
     [super viewDidLoad];
+    [self.view setBackgroundColor:[UIColor systemBackgroundColor]];
+    [self.interactor preloadData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -79,9 +82,12 @@
 
 - (void)present:(__kindof UIViewController *)vc
 {
-    [self presentViewController:vc animated:YES completion:^{
-        
-    }];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (void)present:(__kindof UIViewController *)vc completion:(void (^)(void))completion
+{
+    [self presentViewController:vc animated:YES completion:completion];
 }
 
 - (AnyPromise *)presentPromise:(__kindof UIViewController *)vc
@@ -96,6 +102,11 @@
 - (void)pop
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)popToRoot
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)dismissPresenter
@@ -163,6 +174,12 @@
             self.popupComponent = component;
             break;
         }
+        case VB_ComponentTypePicker:
+        {
+            component.presenter = self;
+            self.pickerComponent = component;
+            break;
+        }
         default:
             break;
     }
@@ -199,8 +216,41 @@
    return [self alert:style selections:selections config:config sender:nil];
 }
 
+- (AnyPromise*)alert:(NSString*)msg input:(NSString*)placeholder sender:(id _Nullable)sender;
+{
+    if (self.alertComponent) {
+        return [self.alertComponent alert:msg input:placeholder sender:sender];
+    }
+    return [self error:[NSString stringWithFormat:@"%@没有配置Alert组件",self]];
+}
 
-- (void)show:(NSString *)msg
+- (AnyPromise*)alert:(NSString*)msg input:(NSString*)placeholder;
+{
+    return [self alert:msg input:placeholder sender:nil];
+}
+
+- (AnyPromise*)alert:(NSString*)msg input:(NSString*)placeholder input:(NSString* _Nullable)placeholder2  sender:(id _Nullable)sender;
+{
+    if (self.alertComponent) {
+         return [self.alertComponent alert:msg input:placeholder input:placeholder2 sender:sender];
+    }
+    return [self error:[NSString stringWithFormat:@"%@没有配置Alert组件",self]];
+}
+
+- (nonnull AnyPromise *)alert:(nullable NSString *)msg input:(nullable NSString *)placeholder input:(nullable NSString *)placeholder2 config:(void (^ _Nullable)(UIAlertController * _Nullable))config sender:(nullable id)sender {
+    if (self.alertComponent) {
+           return [self.alertComponent alert:msg input:placeholder input:placeholder2 config:config sender:sender];
+    }
+    return [self error:[NSString stringWithFormat:@"%@没有配置Alert组件",self]];
+}
+
+
+- (AnyPromise*)alert:(NSString*)msg input:(NSString*)placeholder input:(NSString* _Nullable)placeholder2;
+{
+    return [self alert:msg input:placeholder input:placeholder2 sender:nil];
+}
+
+- (void)hudShow:(NSString *)msg
 {
     NSAssert(self.hudComponent,@"%@没有配置HUD组件",self);
     if (self.hudComponent) {
@@ -208,7 +258,7 @@
     }
 }
 
-- (void)wait:(NSString *)msg
+- (void)hudWait:(NSString *)msg
 {
     NSAssert(self.hudComponent,@"%@没有配置HUD组件",self);
     if (self.hudComponent) {
@@ -216,7 +266,7 @@
     }
 }
 
-- (void)dismiss
+- (void)hudDismiss
 {
     NSAssert(self.hudComponent,@"%@没有配置HUD组件",self);
     if (self.hudComponent) {
@@ -224,7 +274,7 @@
     }
 }
 
-- (void)success:(NSString *)msg
+- (void)hudSuccess:(NSString *)msg
 {
     NSAssert(self.hudComponent,@"%@没有配置HUD组件",self);
     if (self.hudComponent) {
@@ -237,7 +287,7 @@
     [super viewWillAppear:animated];
     
     if ([self navigationController]) {
-     
+        
         self.originNavibarHidden = [[self navigationController] isNavigationBarHidden];
         
         self.originToolbarHidden = [[self navigationController] isToolbarHidden];
@@ -272,6 +322,7 @@
                 break;
         }
     }
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -364,6 +415,29 @@
     return nil;
 }
 
+- (AnyPromise *)picker
+{
+      NSAssert(self.pickerComponent,@"%@没有配置Picker组件",self);
+      if (self.pickerComponent) {
+          return [self.pickerComponent picker];
+      }
+      return nil;
+}
+
+- (AnyPromise *)pickerWithArray:(NSArray<NSString *> *)array
+{
+    return [self pickerWithArray:array selected:0];
+}
+
+- (AnyPromise *)pickerWithArray:(NSArray<NSString *> *)array selected:(NSInteger)selected
+{
+    NSAssert(self.pickerComponent,@"%@没有配置Picker组件",self);
+    if (self.pickerComponent) {
+        return [self.pickerComponent pickerWithArray:array selected:selected];
+    }
+    return nil;
+}
+
 - (void)dealloc
 {
     NSLog(@"**** %@ %s",[self class],__func__);
@@ -374,5 +448,48 @@
     [super setEditing:editing animated:animated];
     
 }
+
+- (AnyPromise *)didDismissHook
+{
+    __weak typeof(self) ws = self;
+    id obj = [ws objectForReturn];
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull r) {
+        [[self rac_willDeallocSignal] subscribeCompleted:^{
+            if (obj) {
+                r(obj);
+            } else {
+                r(nil);
+            }
+        }];
+    }];
+}
+
+- (id)objectForReturn
+{
+    return nil;
+}
+
+- (id  _Nonnull (^)(NSString * _Nonnull))needData
+{
+    if (!_needData) {
+        __weak typeof(self) ws = self;
+        _needData = ^id _Nonnull(NSString * _Nonnull key) {
+#if DEBUG
+            NSLog(@"[Warning] %@ 外部没有实现 needData 方法，无法获取 %@ 的值", ws , key);
+#endif
+            return nil;
+        };
+    }
+    return _needData;
+}
+
+- (id  _Nonnull (^)(NSString * _Nonnull, id _Nonnull))needDataDef
+{
+    return ^ (NSString * _Nonnull a, id _Nonnull b) {
+        id v = self.needData(a);
+        return v ? v : b;
+    };
+}
+
 
 @end

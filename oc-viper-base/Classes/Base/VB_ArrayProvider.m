@@ -82,6 +82,13 @@
     }];
 }
 
+- (void)addObjects:(NSArray *)objs
+{
+    [self fetchFunc:^(VB_ArrayProvider * _Nonnull provider) {
+       [provider.datas addObjectsFromArray:objs];
+    }];
+}
+
 - (void)insertObject:(id)obj at:(NSUInteger)idx
 {
     [self fetchFunc:^(VB_ArrayProvider * _Nonnull provider) {
@@ -103,7 +110,24 @@
     }];
 }
 
+- (void)setPredicate:(NSPredicate *)predicate
+{
+    if (!self.originDatas) {
+        self.originDatas = [self.datas mutableCopy];
+    }
+    if (predicate) {
+        self.datas = [[self.originDatas filteredArrayUsingPredicate:predicate] mutableCopy];
+    } else {
+        self.datas = self.originDatas;
+    }
+}
+
 - (NSUInteger)count
+{
+    return self.datas.count;
+}
+
+- (NSUInteger)countForSection:(NSUInteger)section
 {
     return self.datas.count;
 }

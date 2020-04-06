@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 - (void)addObject:(__kindof VB_IndexPathEntity*)obj;
+- (void)addObjects:(NSArray*)objs;
 - (void)insertObject:(__kindof VB_IndexPathEntity*)obj at:(NSUInteger)idx;
 - (void)removeObject:(__kindof VB_IndexPathEntity*)obj;
 - (void)removeAllObjects;
@@ -24,6 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof VB_IndexPathEntity*)pop;
 - (void)push:(__kindof VB_IndexPathEntity*)obj;
 - (NSUInteger)count;
+- (NSUInteger)countForSection:(NSUInteger)section;
+- (NSUInteger)sectionsCount;
+- (NSString*)titleForSection:(NSUInteger)section;
+- (NSString*)titleForSectionFooter:(NSUInteger)section;
 
 @property (nonatomic, assign) BOOL useHeader;
 @property (nonatomic, weak) id<VB_ComponentTypeView_Protocol> view;
@@ -37,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 {
     
 }
+
+
 
 @end
 

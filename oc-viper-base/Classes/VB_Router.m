@@ -7,20 +7,15 @@
 //
 
 #import "VB_Router.h"
+#import "VB_Router+Hide.h"
+
 @import PromiseKit;
 
 @implementation VB_Router
 
 @dynamic registTransaction;
 
-+ (instancetype)sharedInstance {
-    static VB_Router * _g_shared_router_vb = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _g_shared_router_vb = [[VB_Router alloc] init];
-    });
-    return _g_shared_router_vb;
-}
+
 
 - (instancetype)init
 {

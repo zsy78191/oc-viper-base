@@ -16,10 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @property (nonatomic, strong) NSMutableArray* datas;
+@property (nonatomic, strong) NSMutableArray* originDatas;
 
 @property (nonatomic, strong) VBCollectionChange* (^fetch)(void (^)(VB_ArrayProvider* provider));
 
 - (BOOL)has:(NSString*)key value:(id)value;
+- (void)setPredicate:(NSPredicate* _Nullable)predicate;
 
 @end
 

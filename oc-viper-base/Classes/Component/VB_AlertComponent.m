@@ -13,6 +13,16 @@
 
 @implementation VB_AlertComponent
 
+- (void)presentAlert:(UIAlertController*)alert sender:(id)sender
+{
+    if (alert.preferredStyle == UIAlertControllerStyleActionSheet) {
+        alert.popoverPresentationController.barButtonItem = sender;
+        [self.presenter present:alert];
+    } else {
+        [self.presenter present:alert];
+    }
+}
+
 - (VB_ComponentType)type
 {
     return VB_ComponentTypeAlert;
@@ -24,9 +34,9 @@
     AnyPromise* a = [AnyPromise promiseWithAdapterBlock:^(PMKAdapter  _Nonnull adapter) {
         @strongify(self);
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [alert setTitle:@"1"];
-        [alert setMessage:@"2"];
-        UIAlertAction* action = [UIAlertAction actionWithTitle:@"321" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alert setTitle:@"提示"];
+        [alert setMessage:msg];
+        UIAlertAction* action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             adapter(@1,nil);
         }];
         
@@ -35,7 +45,7 @@
             adapter(@(-1),nil);
         }]];
         [alert setPreferredAction:action];
-        [self.presenter present:alert];
+        [self presentAlert:alert sender:sender];
     }];
     return  a;
 }
@@ -62,14 +72,68 @@
         if (config) {
             config(alert);
         }
-        if (style == UIAlertControllerStyleActionSheet) {
-            alert.popoverPresentationController.barButtonItem = sender;
-            [self.presenter present:alert];
-        } else {
-            [self.presenter present:alert];
-        }
+        
+        [self presentAlert:alert sender:sender];
+        
     }];
     return a;
+}
+
+- (AnyPromise *)alert:(NSString *)msg input:(NSString *)placeholder sender:(id)sender
+{
+    return [self alert:msg input:placeholder input:nil sender:sender];
+}
+
+- (AnyPromise *)alert:(NSString *)msg
+                input:(NSString *)placeholder
+                input:(NSString *)placeholder2
+               sender:(id)sender
+{
+    return [self alert:msg input:placeholder input:placeholder2 config:nil sender:sender];
+}
+
+- (AnyPromise *)alert:(NSString *)msg
+                input:(NSString *)placeholder
+                input:(NSString *)placeholder2
+               config:(void (^)(UIAlertController * _Nonnull))config
+               sender:(id)sender
+{
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull r) {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [alert setTitle:@"请输入"];
+        [alert setMessage:msg];
+        
+        if (placeholder) {
+            [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                textField.placeholder = placeholder;
+            }];
+        }
+        
+        if (placeholder2) {
+            [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                textField.placeholder = placeholder2;
+            }];
+        }
+        
+        __weak UIAlertController* a = alert;
+        UIAlertAction* action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            NSMutableArray* result = [[NSMutableArray alloc] init];
+            [a.textFields enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [result addObject:obj.text];
+            }];
+            r(result);
+        }];
+        
+        [alert addAction:action];
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            r(nil);
+        }]];
+        [alert setPreferredAction:action];
+        if (config) {
+           config(alert);
+        }
+        [self presentAlert:alert sender:sender];
+    }];
 }
 
 

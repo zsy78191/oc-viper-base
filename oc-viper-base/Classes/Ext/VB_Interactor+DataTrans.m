@@ -12,7 +12,6 @@
 
 -(id _Nonnull (^)(NSString * _Nonnull))getData
 {
-    
     return ^ (NSString* name) {
         return [self valueForKeyPath:name];
     };

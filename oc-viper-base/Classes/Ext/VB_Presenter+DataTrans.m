@@ -38,10 +38,10 @@
 }
 
 
-- (id (^)(NSString * _Nonnull))getData
+- (id _Nullable (^)(NSString * _Nonnull))getData
 {
     return ^ (NSString* key) {
-        return self.needData(key);
+       return self.needData(key);
     };
 }
 
