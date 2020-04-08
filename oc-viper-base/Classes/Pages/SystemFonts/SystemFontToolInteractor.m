@@ -60,6 +60,7 @@
     if (self.presenter.needData) {
        NSString* family = self.presenter.needData(@"family");
        if (family) {
+           self.presenter.title = family;
            self.isSub = YES;
            [self loadFontWithFamily:family];
        } else {
@@ -96,7 +97,9 @@
             }];
             return a;
         }).then(^(NSArray* datas){
-            [self.dataSource addObjects:datas];
+            dispatch_async(dispatch_get_main_queue(), ^{
+               [self.dataSource addObjects:datas];
+            });
         });
     } else {
         [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull r) {
@@ -113,7 +116,9 @@
               }];
               return a;
           }).then(^(NSArray* datas){
-              [self.dataSource addObjects:datas];
+              dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.dataSource addObjects:datas];
+              });
           });
     }
 }
@@ -177,14 +182,14 @@
 {
     if (self.isSub) {
         CustomCellEntity* item = [self.dataSource objectAtIndexPath:param];
-        [[UIPasteboard generalPasteboard] setString:item.title];
-        [[self presenter] hudSuccess:[item.title stringByAppendingFormat:@"已拷贝到剪切板"]];
-        [[self presenter] popToRoot];
+//        [[UIPasteboard generalPasteboard] setString:item.title];
+//        [[self presenter] hudSuccess:[item.title stringByAppendingFormat:@"已拷贝到剪切板"]];
+//        [[self presenter] popToRoot];
+        [self.presenter promiseWithName:@"ensure" param:item];
         resolver(@YES);
     } else {
         CustomCellEntity* item = [self.dataSource objectAtIndexPath:param];
         SystemFontToolPresenter* subFontPresenter = [[SystemFontToolPresenter alloc] init];
-        
         [subFontPresenter setNeedData:^id _Nonnull(NSString * _Nonnull key) {
             if ([key isEqualToString:@"family"]) {
                 return item.title;

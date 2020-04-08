@@ -1,0 +1,11 @@
+${PODS_ROOT}/Target Support Files/Pods-demo/Pods-demo-frameworks.sh
+${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework
+${BUILT_PRODUCTS_DIR}/MGJRouter/MGJRouter.framework
+${BUILT_PRODUCTS_DIR}/MagicalRecord/MagicalRecord.framework
+${BUILT_PRODUCTS_DIR}/Mantle/Mantle.framework
+${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
+${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework
+${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework
+${BUILT_PRODUCTS_DIR}/RegexKitLite/RegexKitLite.framework
+${BUILT_PRODUCTS_DIR}/STPopup/STPopup.framework
+${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework

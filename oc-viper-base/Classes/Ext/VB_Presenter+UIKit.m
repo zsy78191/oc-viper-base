@@ -33,4 +33,42 @@
     return nil;
 }
 
+
+- (AnyPromise *)show:(__kindof UIViewController *)viewController {
+    return [self show:viewController usePush:YES];
+}
+
+- (AnyPromise *)show:(__kindof UIViewController *)viewController usePush:(BOOL)usePush;
+{
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull r) {
+        self.resolver = r;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            if (viewController.splitViewController) {
+                UINavigationController* n = [[UINavigationController alloc] initWithRootViewController:self];
+                n.modalPresentationStyle = UIModalPresentationFormSheet;
+                [viewController.splitViewController presentViewController:n animated:YES completion:nil];
+            } else {
+                UINavigationController* n = [[UINavigationController alloc] initWithRootViewController:self];
+                n.modalPresentationStyle = UIModalPresentationFormSheet;
+                [viewController presentViewController:n animated:YES completion:nil];
+            }
+        } else {
+            UINavigationController* navi = nil;
+            if ([viewController isKindOfClass:[UINavigationController class]]) {
+                navi = viewController;
+            } else if(viewController.navigationController) {
+                navi = viewController.navigationController;
+            }
+            if (navi && usePush) {
+                [navi pushViewController:self animated:YES];
+            } else {
+                UINavigationController* n = [[UINavigationController alloc] initWithRootViewController:self];
+                n.modalPresentationStyle = UIModalPresentationFormSheet;
+                [viewController presentViewController:n animated:YES completion:nil];
+            }
+        }
+    }];
+}
+
+
 @end

@@ -27,7 +27,12 @@
 - (void)loadData:(VB_IndexPathEntity*)entity
 {
     if (entity.icon) {
-        UIImage * image = [UIImage systemImageNamed:entity.icon];
+        UIImage * image = nil;
+          if (@available(iOS 13.0, *)) {
+              image = [UIImage systemImageNamed:entity.icon];
+          } else {
+              image = [UIImage imageNamed:entity.icon];
+          }
         if (!image) {
             image = [UIImage imageNamed:entity.icon];
         }

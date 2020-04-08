@@ -11,6 +11,7 @@
 
 @interface SystemFontToolPresenter () <UISearchResultsUpdating>
 @property (nonatomic, strong) VB_TableviewComponent* tableComponent;
+
 @end
 
 @implementation SystemFontToolPresenter
@@ -19,7 +20,9 @@
     [super viewDidLoad];
 
     // Do any additional setup after loading the view.
-    self.view.backgroundColor  = [UIColor systemBackgroundColor];
+      if (@available(iOS 13.0, *)) {
+          self.view.backgroundColor  = [UIColor systemBackgroundColor];
+      }
 }
 
 - (void)loadComponents
@@ -44,7 +47,9 @@
             return nil;
         };
         self.navigationItem.searchController = [[UISearchController alloc] initWithSearchResultsController:searchResult];
-        self.navigationItem.searchController.automaticallyShowsCancelButton = YES;
+          if (@available(iOS 13.0, *)) {
+              self.navigationItem.searchController.automaticallyShowsCancelButton = YES;
+          }
         self.navigationItem.searchController.searchResultsUpdater = self;
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"导入" style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -63,15 +68,36 @@
         if ([family isEqualToString:@"用户导入字体"]) {
             self.tableComponent.useDelete = YES;
         }
+        NSString* title = self.needData(@"title");
+        if (title) {
+            self.title = title;
+        }
     }
 
     [self.interactor promiseWithName:@"preLoad"];
+}
+
+- (id)ensure:(PMKResolver)resolver param:(id)param {
+    if (self.resolver) {
+        self.resolver(param);
+    }
+    resolver(@1);
+    return @YES;
+}
+
+- (void)push:(__kindof UIViewController *)vc
+{
+    if ([vc isKindOfClass:[SystemFontToolPresenter class]]) {
+        [(SystemFontToolPresenter*)vc setResolver:self.resolver];
+    }
+    [super push:vc];
 }
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
     NSString* str = searchController.searchBar.text;
     SystemFontToolPresenter* searchResult = (SystemFontToolPresenter*)self.navigationItem.searchController.searchResultsController;
+    searchResult.resolver = self.resolver;
     [searchResult.interactor promiseWithName:@"setFilterString" param:str];
 }
 
@@ -92,6 +118,7 @@
 {
     [super viewWillAppear:animated];
 }
+
 
 /*
 #pragma mark - Navigation

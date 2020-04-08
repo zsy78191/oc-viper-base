@@ -1,0 +1,23 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'demo' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+ 
+  inhibit_all_warnings!
+  # Pods for viper-base
+  pod 'ReactiveObjC'
+  pod 'MGJRouter'
+  pod 'PromiseKit'
+  pod 'SVProgressHUD'
+  pod 'IQKeyboardManager'
+  pod 'STPopup'
+  pod 'Mantle'
+  pod 'MagicalRecord'
+#  pod 'Classy'
+  pod 'Masonry'
+  pod 'RegexKitLite'
+  # Pods for demo
+
+end

@@ -149,21 +149,15 @@
 }
 
 + (AnyPromise*)fontsURL {
-    NSURL* url = [[NSURL fileURLWithPath:[@"~/Documents" stringByExpandingTildeInPath]] URLByAppendingPathComponent:@"fonts"];
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull r) {
-          r(@([[NSFileManager defaultManager] fileExistsAtPath:[url path]]));
-      }].then(^(id exist){
-          if(![exist boolValue]) {
-              NSError* error;
-              [[NSFileManager defaultManager] createDirectoryAtPath:[url path] withIntermediateDirectories:NO attributes:nil error:&error];
-              if (error) {
-                  @throw error;
-              }
-              return url;
-          } else {
-              return url;
-          }
-      });
+        NSURL* url = [[NSURL fileURLWithPath:[@"~/Documents" stringByExpandingTildeInPath]] URLByAppendingPathComponent:@"fonts"];
+        BOOL exist = [[NSFileManager defaultManager] fileExistsAtPath:[url path]];
+        if(!exist) {
+         NSError* error;
+         [[NSFileManager defaultManager] createDirectoryAtPath:[url path] withIntermediateDirectories:NO attributes:nil error:&error];
+        }
+        r(url);
+    }];
 }
 
 + (AnyPromise *)importFont:(NSURL *)url
@@ -184,7 +178,7 @@
 + (AnyPromise*)autoRegistFont
 {
   return [[self class] fontsURL]
-  .thenInBackground(^ (NSURL* url){
+  .then(^ (NSURL* url){
         NSArray* content = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[url path] error:nil];
         NSMutableArray* array = [NSMutableArray array];
         [content enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -205,7 +199,6 @@
                 font.file = obj;
                 [final addObject:font];
             }
-//            [final addObjectsFromArray:t];
         }];
         return [final copy];
     });

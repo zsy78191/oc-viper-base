@@ -54,7 +54,9 @@
 - (void)viewDidLoad {
     [self loadComponents];
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor systemBackgroundColor]];
+    if (@available(iOS 13.0, *)) {
+        [self.view setBackgroundColor:[UIColor systemBackgroundColor]];
+    }
     [self.interactor preloadData];
 }
 

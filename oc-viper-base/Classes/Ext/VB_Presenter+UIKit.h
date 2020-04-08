@@ -14,7 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isSearchViewControllerResult;
 - (VB_Presenter* _Nullable)parentPresenter;
-
+//- (void)closePresenter;
+- (AnyPromise *)show:(__kindof UIViewController *)viewController;
+- (AnyPromise *)show:(__kindof UIViewController *)viewController usePush:(BOOL)usePush;
 @end
 
 NS_ASSUME_NONNULL_END

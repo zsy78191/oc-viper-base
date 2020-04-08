@@ -22,6 +22,7 @@
 
 - (id)ensere:(PMKResolver)resolver param:(id)param {
     self.resovler(param);
+    resolver(@1);
     [self pop];
     return @YES;
 }

@@ -121,6 +121,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (AnyPromise*)didDismissHook;
 - (id)objectForReturn;
 
+@property (nonatomic, strong) PMKResolver resolver;
+
 @end
 
 NS_ASSUME_NONNULL_END

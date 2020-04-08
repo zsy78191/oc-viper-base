@@ -36,6 +36,7 @@
 #import "VB_FormatterManager.h"
 #import "VB_Picker_Component.h"
 #import "VB_TablePicker_Component.h"
+#import "UIViewController+Router.h"
 @import MGJRouter;
 
 #endif /* VB_Out_Header_h */

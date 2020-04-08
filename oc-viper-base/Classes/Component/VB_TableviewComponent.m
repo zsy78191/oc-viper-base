@@ -118,7 +118,11 @@
     if (entity.icon) {
         cell.imageView.image = [UIImage imageNamed:entity.icon];
         if (!cell.imageView.image) {
-            cell.imageView.image = [UIImage systemImageNamed:entity.icon];
+              if (@available(iOS 13.0, *)) {
+                  cell.imageView.image = [UIImage systemImageNamed:entity.icon];
+              } else {
+                  cell.imageView.image = [UIImage imageNamed:entity.icon];
+              }
         }
     }
     cell.accessoryType = entity.accessoryType;
@@ -173,7 +177,8 @@
 - (void)registCell:(Class)className forIdentifier:(NSString *)identifer
 {
     NSString* nibName = NSStringFromClass(className);
-    UINib* nib = [UINib nibWithNibName:nibName bundle:[NSBundle mainBundle]];
+    NSBundle* bundle = [NSBundle bundleForClass:[self class]];
+    UINib* nib = [UINib nibWithNibName:nibName bundle:bundle];
     if (nib) {
         [self.view registerNib:nib forCellReuseIdentifier:identifer];
     } else {
@@ -184,7 +189,8 @@
 - (void)registHeader:(Class)className forIdentifier:(NSString *)identifer
 {
     NSString* nibName = NSStringFromClass(className);
-    UINib* nib = [UINib nibWithNibName:nibName bundle:[NSBundle mainBundle]];
+    NSBundle* bundle = [NSBundle bundleForClass:[self class]];
+    UINib* nib = [UINib nibWithNibName:nibName bundle:bundle];
     if (nib) {
         [self.view registerNib:nib forHeaderFooterViewReuseIdentifier:identifer];
     } else {

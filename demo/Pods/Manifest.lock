@@ -1,0 +1,64 @@
+PODS:
+  - IQKeyboardManager (6.5.5)
+  - MagicalRecord (2.3.2):
+    - MagicalRecord/Core (= 2.3.2)
+  - MagicalRecord/Core (2.3.2)
+  - Mantle (2.1.1):
+    - Mantle/extobjc (= 2.1.1)
+  - Mantle/extobjc (2.1.1)
+  - Masonry (1.1.0)
+  - MGJRouter (0.10.0)
+  - PromiseKit (6.13.1):
+    - PromiseKit/CorePromise (= 6.13.1)
+    - PromiseKit/Foundation (= 6.13.1)
+    - PromiseKit/UIKit (= 6.13.1)
+  - PromiseKit/CorePromise (6.13.1)
+  - PromiseKit/Foundation (6.13.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.13.1):
+    - PromiseKit/CorePromise
+  - ReactiveObjC (3.1.1)
+  - RegexKitLite (4.0)
+  - STPopup (1.8.7)
+  - SVProgressHUD (2.2.5)
+
+DEPENDENCIES:
+  - IQKeyboardManager
+  - MagicalRecord
+  - Mantle
+  - Masonry
+  - MGJRouter
+  - PromiseKit
+  - ReactiveObjC
+  - RegexKitLite
+  - STPopup
+  - SVProgressHUD
+
+SPEC REPOS:
+  trunk:
+    - IQKeyboardManager
+    - MagicalRecord
+    - Mantle
+    - Masonry
+    - MGJRouter
+    - PromiseKit
+    - ReactiveObjC
+    - RegexKitLite
+    - STPopup
+    - SVProgressHUD
+
+SPEC CHECKSUMS:
+  IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
+  MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
+  Mantle: 35238ae6f2e2b2d474fa7b67fee82a59fea71915
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MGJRouter: 15d94541eb2cc81eff7d577337288feb7ae9575f
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
+  ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
+  RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
+  STPopup: a9045557bc48a0df51fbb7bf0544447c5fe84d34
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+
+PODFILE CHECKSUM: a1edfb532abaf969608348610ae6691427407b65
+
+COCOAPODS: 1.8.4
