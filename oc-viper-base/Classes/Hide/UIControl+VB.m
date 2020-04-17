@@ -10,7 +10,7 @@
 
 @implementation UIControl (VB)
 
-- (RACChannelTerminal *)vb_channelForControlEvents:(UIControlEvents)controlEvents key:(NSString *)key nilValue:(id)nilValue {
+- (RACChannelTerminal *)VB_ChannelForControlEvents:(UIControlEvents)controlEvents key:(NSString *)key nilValue:(id)nilValue {
     NSCParameterAssert(key.length > 0);
     key = [key copy];
     RACChannel *channel = [[RACChannel alloc] init];

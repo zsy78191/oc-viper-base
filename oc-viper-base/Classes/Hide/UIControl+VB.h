@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIControl (VB)
 
-- (RACChannelTerminal *)vb_channelForControlEvents:(UIControlEvents)controlEvents key:(NSString *)key nilValue:(id)nilValue;
+- (RACChannelTerminal *)VB_ChannelForControlEvents:(UIControlEvents)controlEvents key:(NSString *)key nilValue:(id)nilValue;
 
 @end
 

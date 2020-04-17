@@ -33,23 +33,28 @@
     return nil;
 }
 
-
-- (AnyPromise *)show:(__kindof UIViewController *)viewController {
-    return [self show:viewController usePush:YES];
+- (AnyPromise *)show:(__kindof UIViewController *)viewController model:(UIModalPresentationStyle)style {
+    return [self show:viewController model:style usePush:YES];
 }
 
-- (AnyPromise *)show:(__kindof UIViewController *)viewController usePush:(BOOL)usePush;
+
+
+- (AnyPromise *)show:(__kindof UIViewController *)viewController {
+    return [self show:viewController model:UIModalPresentationPageSheet usePush:YES];
+}
+
+- (AnyPromise *)show:(__kindof UIViewController *)viewController model:(UIModalPresentationStyle)style usePush:(BOOL)usePush;
 {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull r) {
         self.resolver = r;
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
             if (viewController.splitViewController) {
                 UINavigationController* n = [[UINavigationController alloc] initWithRootViewController:self];
-                n.modalPresentationStyle = UIModalPresentationFormSheet;
+                n.modalPresentationStyle = style;
                 [viewController.splitViewController presentViewController:n animated:YES completion:nil];
             } else {
                 UINavigationController* n = [[UINavigationController alloc] initWithRootViewController:self];
-                n.modalPresentationStyle = UIModalPresentationFormSheet;
+                n.modalPresentationStyle = style;
                 [viewController presentViewController:n animated:YES completion:nil];
             }
         } else {
@@ -63,7 +68,7 @@
                 [navi pushViewController:self animated:YES];
             } else {
                 UINavigationController* n = [[UINavigationController alloc] initWithRootViewController:self];
-                n.modalPresentationStyle = UIModalPresentationFormSheet;
+                n.modalPresentationStyle = style;
                 [viewController presentViewController:n animated:YES completion:nil];
             }
         }

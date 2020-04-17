@@ -12,13 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIBarButtonItem (VB)
 
-- (void)setPromise:(id)sender selector:(SEL)selector;
+- (void)VB_SetPromise:(id)sender selector:(SEL)selector;
 
 @end
 
 @interface UIButton (VB)
 
-- (void)setPromise:(id)sender selector:(SEL)selector;
+- (void)VB_SetPromise:(id)sender selector:(SEL)selector;
 
 @end
 

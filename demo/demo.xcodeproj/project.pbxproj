@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		87C084601DE16A950AA64004 /* Pods_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFCE8ACB283321834DD5B72D /* Pods_demo.framework */; };
+		D468FEAC243DF3AA007289B3 /* MySetting.m in Sources */ = {isa = PBXBuildFile; fileRef = D468FEAB243DF3AA007289B3 /* MySetting.m */; };
 		D4694311243C3B1E00E26D4A /* UIViewController+Router.m in Sources */ = {isa = PBXBuildFile; fileRef = D4694310243C3B1E00E26D4A /* UIViewController+Router.m */; };
 		D4694313243C3BBE00E26D4A /* oc-viper-base.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D4694312243C3BBE00E26D4A /* oc-viper-base.podspec */; };
 		D4EE32F3243B5AB400ED3014 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE32F2243B5AB400ED3014 /* AppDelegate.m */; };
@@ -39,8 +40,6 @@
 		D4EE33A5243B5AC400ED3014 /* VB_TableviewComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE3336243B5AC400ED3014 /* VB_TableviewComponent.m */; };
 		D4EE33A6243B5AC400ED3014 /* VBCollectionChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE3337243B5AC400ED3014 /* VBCollectionChange.m */; };
 		D4EE33A7243B5AC400ED3014 /* VB_Interactor.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE333C243B5AC400ED3014 /* VB_Interactor.m */; };
-		D4EE33A8243B5AC400ED3014 /* AnyPromise+VB.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE3340243B5AC400ED3014 /* AnyPromise+VB.m */; };
-		D4EE33A9243B5AC400ED3014 /* NSObject+VB.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE3343243B5AC400ED3014 /* NSObject+VB.m */; };
 		D4EE33AA243B5AC400ED3014 /* UITableViewCell+VB.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE3344243B5AC400ED3014 /* UITableViewCell+VB.m */; };
 		D4EE33AB243B5AC400ED3014 /* VB_Presenter+Gesture.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE3345243B5AC400ED3014 /* VB_Presenter+Gesture.m */; };
 		D4EE33AC243B5AC400ED3014 /* UIBarButtonItem+VB.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE3346243B5AC400ED3014 /* UIBarButtonItem+VB.m */; };
@@ -78,6 +77,8 @@
 /* Begin PBXFileReference section */
 		22DF1033DCAC75D298D555DD /* Pods-demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo.release.xcconfig"; path = "Target Support Files/Pods-demo/Pods-demo.release.xcconfig"; sourceTree = "<group>"; };
 		8B51DB0EF0BE0D12734FA0A4 /* Pods-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo.debug.xcconfig"; path = "Target Support Files/Pods-demo/Pods-demo.debug.xcconfig"; sourceTree = "<group>"; };
+		D468FEAA243DF3AA007289B3 /* MySetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySetting.h; sourceTree = "<group>"; };
+		D468FEAB243DF3AA007289B3 /* MySetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySetting.m; sourceTree = "<group>"; };
 		D469430F243C3B1E00E26D4A /* UIViewController+Router.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Router.h"; sourceTree = "<group>"; };
 		D4694310243C3B1E00E26D4A /* UIViewController+Router.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Router.m"; sourceTree = "<group>"; };
 		D4694312243C3BBE00E26D4A /* oc-viper-base.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "oc-viper-base.podspec"; path = "../oc-viper-base.podspec"; sourceTree = "<group>"; };
@@ -138,17 +139,13 @@
 		D4EE333C243B5AC400ED3014 /* VB_Interactor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VB_Interactor.m; sourceTree = "<group>"; };
 		D4EE333E243B5AC400ED3014 /* VB_Presenter+Gesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VB_Presenter+Gesture.h"; sourceTree = "<group>"; };
 		D4EE333F243B5AC400ED3014 /* UIControl+VB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+VB.h"; sourceTree = "<group>"; };
-		D4EE3340243B5AC400ED3014 /* AnyPromise+VB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AnyPromise+VB.m"; sourceTree = "<group>"; };
 		D4EE3341243B5AC400ED3014 /* UIBarButtonItem+VB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+VB.h"; sourceTree = "<group>"; };
 		D4EE3342243B5AC400ED3014 /* VB_Router+Hide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VB_Router+Hide.h"; sourceTree = "<group>"; };
-		D4EE3343243B5AC400ED3014 /* NSObject+VB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+VB.m"; sourceTree = "<group>"; };
 		D4EE3344243B5AC400ED3014 /* UITableViewCell+VB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+VB.m"; sourceTree = "<group>"; };
 		D4EE3345243B5AC400ED3014 /* VB_Presenter+Gesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VB_Presenter+Gesture.m"; sourceTree = "<group>"; };
 		D4EE3346243B5AC400ED3014 /* UIBarButtonItem+VB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+VB.m"; sourceTree = "<group>"; };
-		D4EE3347243B5AC400ED3014 /* AnyPromise+VB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AnyPromise+VB.h"; sourceTree = "<group>"; };
 		D4EE3348243B5AC400ED3014 /* UIControl+VB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+VB.m"; sourceTree = "<group>"; };
 		D4EE3349243B5AC400ED3014 /* UITableViewCell+VB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+VB.h"; sourceTree = "<group>"; };
-		D4EE334A243B5AC400ED3014 /* NSObject+VB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+VB.h"; sourceTree = "<group>"; };
 		D4EE334B243B5AC400ED3014 /* VB_Router+Hide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VB_Router+Hide.m"; sourceTree = "<group>"; };
 		D4EE334C243B5AC400ED3014 /* VB_Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VB_Entity.h; sourceTree = "<group>"; };
 		D4EE334D243B5AC400ED3014 /* VB_Presenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VB_Presenter.h; sourceTree = "<group>"; };
@@ -228,6 +225,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D468FEA9243DF38E007289B3 /* entity */ = {
+			isa = PBXGroup;
+			children = (
+				D468FEAA243DF3AA007289B3 /* MySetting.h */,
+				D468FEAB243DF3AA007289B3 /* MySetting.m */,
+			);
+			path = entity;
+			sourceTree = "<group>";
+		};
 		D4EE32E5243B5AB400ED3014 = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +257,7 @@
 		D4EE32F0243B5AB400ED3014 /* demo */ = {
 			isa = PBXGroup;
 			children = (
+				D468FEA9243DF38E007289B3 /* entity */,
 				D4EE32F1243B5AB400ED3014 /* AppDelegate.h */,
 				D4EE32F2243B5AB400ED3014 /* AppDelegate.m */,
 				D4EE32F4243B5AB400ED3014 /* SceneDelegate.h */,
@@ -390,19 +397,15 @@
 		D4EE333D243B5AC400ED3014 /* Hide */ = {
 			isa = PBXGroup;
 			children = (
-				D4EE333E243B5AC400ED3014 /* VB_Presenter+Gesture.h */,
-				D4EE333F243B5AC400ED3014 /* UIControl+VB.h */,
-				D4EE3340243B5AC400ED3014 /* AnyPromise+VB.m */,
 				D4EE3341243B5AC400ED3014 /* UIBarButtonItem+VB.h */,
-				D4EE3342243B5AC400ED3014 /* VB_Router+Hide.h */,
-				D4EE3343243B5AC400ED3014 /* NSObject+VB.m */,
-				D4EE3344243B5AC400ED3014 /* UITableViewCell+VB.m */,
-				D4EE3345243B5AC400ED3014 /* VB_Presenter+Gesture.m */,
 				D4EE3346243B5AC400ED3014 /* UIBarButtonItem+VB.m */,
-				D4EE3347243B5AC400ED3014 /* AnyPromise+VB.h */,
+				D4EE333F243B5AC400ED3014 /* UIControl+VB.h */,
 				D4EE3348243B5AC400ED3014 /* UIControl+VB.m */,
 				D4EE3349243B5AC400ED3014 /* UITableViewCell+VB.h */,
-				D4EE334A243B5AC400ED3014 /* NSObject+VB.h */,
+				D4EE3344243B5AC400ED3014 /* UITableViewCell+VB.m */,
+				D4EE333E243B5AC400ED3014 /* VB_Presenter+Gesture.h */,
+				D4EE3345243B5AC400ED3014 /* VB_Presenter+Gesture.m */,
+				D4EE3342243B5AC400ED3014 /* VB_Router+Hide.h */,
 				D4EE334B243B5AC400ED3014 /* VB_Router+Hide.m */,
 			);
 			path = Hide;
@@ -512,13 +515,13 @@
 		D4EE336F243B5AC400ED3014 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D4EE3370243B5AC400ED3014 /* SettingItemEntity.m */,
-				D4EE3371243B5AC400ED3014 /* SettingEntity.h */,
-				D4EE3372243B5AC400ED3014 /* DemoSettingEntity.m */,
-				D4EE3373243B5AC400ED3014 /* VBSettingEntityProtocal.h */,
 				D4EE3374243B5AC400ED3014 /* DemoSettingEntity.h */,
+				D4EE3372243B5AC400ED3014 /* DemoSettingEntity.m */,
+				D4EE3371243B5AC400ED3014 /* SettingEntity.h */,
 				D4EE3375243B5AC400ED3014 /* SettingEntity.m */,
 				D4EE3376243B5AC400ED3014 /* SettingItemEntity.h */,
+				D4EE3370243B5AC400ED3014 /* SettingItemEntity.m */,
+				D4EE3373243B5AC400ED3014 /* VBSettingEntityProtocal.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -559,13 +562,13 @@
 			isa = PBXGroup;
 			children = (
 				D4EE3386243B5AC400ED3014 /* NSObject+Runtime.h */,
-				D4EE3387243B5AC400ED3014 /* VB_FetchProvider.m */,
-				D4EE3388243B5AC400ED3014 /* VB_ArrayProvider.m */,
-				D4EE3389243B5AC400ED3014 /* VB_DataProvider.h */,
 				D4EE338A243B5AC400ED3014 /* NSObject+Runtime.m */,
 				D4EE338B243B5AC400ED3014 /* VB_ArrayProvider.h */,
-				D4EE338C243B5AC400ED3014 /* VB_FetchProvider.h */,
+				D4EE3388243B5AC400ED3014 /* VB_ArrayProvider.m */,
+				D4EE3389243B5AC400ED3014 /* VB_DataProvider.h */,
 				D4EE338D243B5AC400ED3014 /* VB_DataProvider.m */,
+				D4EE338C243B5AC400ED3014 /* VB_FetchProvider.h */,
+				D4EE3387243B5AC400ED3014 /* VB_FetchProvider.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -726,7 +729,6 @@
 				D4EE33B3243B5AC400ED3014 /* SettingCellDescription.m in Sources */,
 				D4EE339B243B5AC400ED3014 /* VB_Router.m in Sources */,
 				D4EE3393243B5AC400ED3014 /* VB_Presenter.m in Sources */,
-				D4EE33A9243B5AC400ED3014 /* NSObject+VB.m in Sources */,
 				D4EE33BF243B5AC400ED3014 /* SettingPagePresenter.m in Sources */,
 				D4EE339D243B5AC400ED3014 /* VB_TablePicker_Component.m in Sources */,
 				D4EE33A5243B5AC400ED3014 /* VB_TableviewComponent.m in Sources */,
@@ -740,6 +742,7 @@
 				D4EE3394243B5AC400ED3014 /* VB_IndexPathEntity.m in Sources */,
 				D4EE339F243B5AC400ED3014 /* VB_Picker_Component.m in Sources */,
 				D4EE339C243B5AC400ED3014 /* VB_Component.m in Sources */,
+				D468FEAC243DF3AA007289B3 /* MySetting.m in Sources */,
 				D4EE33C7243B5AC400ED3014 /* NSObject+Runtime.m in Sources */,
 				D4EE33A6243B5AC400ED3014 /* VBCollectionChange.m in Sources */,
 				D4EE33A2243B5AC400ED3014 /* VB_Picker_Table_Interactor.m in Sources */,
@@ -753,7 +756,6 @@
 				D4EE33A0243B5AC400ED3014 /* VB_SVProgressHUDComponent.m in Sources */,
 				D4EE33C5243B5AC400ED3014 /* VB_FetchProvider.m in Sources */,
 				D4EE3392243B5AC400ED3014 /* VB_Entity.m in Sources */,
-				D4EE33A8243B5AC400ED3014 /* AnyPromise+VB.m in Sources */,
 				D4EE32F3243B5AB400ED3014 /* AppDelegate.m in Sources */,
 				D4EE3304243B5AB500ED3014 /* main.m in Sources */,
 				D4EE32F6243B5AB400ED3014 /* SceneDelegate.m in Sources */,

@@ -13,7 +13,7 @@
 
 @implementation UIBarButtonItem (VB)
 
-- (void)setPromise:(id)sender selector:(SEL)selector;
+- (void)VB_SetPromise:(id)sender selector:(SEL)selector;
 {
     __weak typeof (sender) weakSender = sender;
     self.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
@@ -45,7 +45,7 @@
 
 @implementation UIButton (VB)
 
-- (void)setPromise:(id)sender selector:(SEL)selector;
+- (void)VB_SetPromise:(id)sender selector:(SEL)selector;
 {
     __weak typeof (sender) waekSender = sender;
     self.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {

@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+ 
 }
 
 - (void)loadComponents
@@ -79,6 +79,10 @@
 
 - (void)dealloc
 {
+    if (self.resolver && self.entity) {
+        self.resolver(self.entity);
+    }
+    
     NSLog(@"[SETTING]%s",__func__);
 }
 

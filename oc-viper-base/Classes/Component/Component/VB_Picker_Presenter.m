@@ -81,7 +81,9 @@
     if (self.selectedItem) {
         NSInteger c = self.componentCount();
         for (int i = 0; i<c; i++) {
-            [picker selectRow:self.selectedItem(i) inComponent:i animated:NO];
+            NSInteger s = self.selectedItem(i);
+            NSLog(@"%@",@(s));
+            [picker selectRow:s inComponent:i animated:NO];
         }
     }
 }

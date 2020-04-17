@@ -17,8 +17,8 @@
 #import "VB_Entity.h"
 #import "VB_Router.h"
 #import "VB_Presenter+Gesture.h"
-#import "NSObject+VB.h"
-#import "AnyPromise+VB.h"
+//#import "NSObject+VB.h"
+//#import "AnyPromise+VB.h"
 #import "VB_ArrayProvider.h"
 #import "VB_Component.h"
 #import "VB_TableviewComponent.h"
@@ -37,6 +37,7 @@
 #import "VB_Picker_Component.h"
 #import "VB_TablePicker_Component.h"
 #import "UIViewController+Router.h"
+#import "VB_Presenter+UIKit.h"
 @import MGJRouter;
 
 #endif /* VB_Out_Header_h */

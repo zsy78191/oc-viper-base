@@ -42,6 +42,7 @@
     
 //    NSDictionary* propertyClass = [NSObject vb_propertyWithClass:[entity class]];
 //    NSLog(@"%@",propertyClass);
+//    NSLog(@"%@",[(id)self.entity vb_propertysName]);
     [[(id)self.entity vb_propertysName] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
 //        id value =  [(id)self.entity valueForKey:obj];
@@ -152,7 +153,7 @@
     if (!e.selections) {
         selected = 0;
     } else {
-        if ([e.selections indexOfObject:e.value] == kCFNotFound) {
+        if ([e.selections indexOfObject:e.value] == NSNotFound) {
             selected = 0;
         } else {
             selected = [e.selections indexOfObject:e.value];

@@ -23,6 +23,7 @@
       if (@available(iOS 13.0, *)) {
           self.view.backgroundColor  = [UIColor systemBackgroundColor];
       }
+ 
 }
 
 - (void)loadComponents

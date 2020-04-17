@@ -17,6 +17,8 @@
     __kindof VB_Interactor* _interactor;
 }
 
+@property (nonatomic, assign) BOOL isModelShow;
+
 @property (nonatomic, strong) VB_Component <VB_ComponentTypeAlert_Protocol>* alertComponent;
 @property (nonatomic, strong) VB_Component <VB_ComponentTypeHUD_Protocol>* hudComponent;
 @property (nonatomic, strong) VB_Component <VB_ComponentTypePopup_Protocol>* popupComponent;
@@ -54,10 +56,38 @@
 - (void)viewDidLoad {
     [self loadComponents];
     [super viewDidLoad];
+    
+    self.hidesBottomBarWhenPushed = YES;
+    
     if (@available(iOS 13.0, *)) {
         [self.view setBackgroundColor:[UIColor systemBackgroundColor]];
     }
     [self.interactor preloadData];
+    
+    self.isModelShow = NO;
+    
+    if (self.navigationController) {
+        if (self.navigationController.modalPresentationStyle == UIModalPresentationPageSheet || self.navigationController.modalPresentationStyle == UIModalPresentationFormSheet) {
+     
+            if (self.navigationController.viewControllers.count == 1) {
+                if (self.navigationController.presentingViewController) {
+                    self.isModelShow = YES;
+                }
+            }
+        }
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+- (void)closeModelShow
+{
+    if (self.navigationController) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -68,7 +98,7 @@
 - (void)binding:(id)obj keypath:(NSString*)path toObj:(__kindof UIControl*)obj2 keypath:(NSString*)path2 {
     id v = [obj valueForKey:path];
     [[RACKVOChannel alloc] initWithTarget:obj keyPath:path nilValue:nil][@keypath(RACKVOChannel.new, followingTerminal)] =
-    [obj2 vb_channelForControlEvents:UIControlEventValueChanged key:path2 nilValue:v];
+    [obj2 VB_ChannelForControlEvents:UIControlEventValueChanged key:path2 nilValue:v];
     [obj2 setValue:v forKey:path2];
 }
 
@@ -325,6 +355,14 @@
         }
     }
     
+    
+    if (self.isModelShow) {
+           if (!self.navigationItem.leftBarButtonItem) {
+               if (!self.navigationItem.backBarButtonItem) {
+                   self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"关闭", nil) style:UIBarButtonItemStylePlain target:self action:@selector(closeModelShow)];
+               }
+           }
+       }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
