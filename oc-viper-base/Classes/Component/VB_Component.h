@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class VB_Interactor, VB_Presenter, VB_DataProvider, AnyPromise, VBCollectionChange;
+@class VB_Interactor, VB_Presenter, VB_DataProvider, AnyPromise, VB_CollectionChange;
 
 typedef enum : NSUInteger {
     VB_ComponentTypeView,
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)reloadDataAtIndexPath:(NSIndexPath*)path;
 
 @property (nonatomic, weak) __kindof VB_DataProvider* _Nullable dataSource;
-- (void)applyChanges:(VBCollectionChange* _Nullable)changes;
+- (void)applyChanges:(VB_CollectionChange* _Nullable)changes;
 
 @end
 

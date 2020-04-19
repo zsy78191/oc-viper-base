@@ -8,7 +8,7 @@
 //
 
 #import "VB_FontLoader.h"
-#import "VBCollectionChange.h"
+#import "VB_CollectionChange.h"
 @import CoreText;
 @import PromiseKit;
 

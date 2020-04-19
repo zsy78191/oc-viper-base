@@ -34,4 +34,9 @@
     return [[super description] stringByAppendingFormat:@"%@",[self.childrens componentsJoinedByString:@"|"]];
 }
 
+- (void)dealloc
+{
+    NSLog(@"%s",__func__);
+}
+
 @end

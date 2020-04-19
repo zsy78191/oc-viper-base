@@ -12,6 +12,7 @@
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+    self.window.backgroundColor = [UIColor systemBackgroundColor];
     
     [self loadExtraFonts];
 }
@@ -52,19 +53,41 @@
 
 /// 加载额外的字体，首先注册全局变量，然后加载字体，最后记录字体
 
-- (void)loadExtraFonts {
+- (void)loadExtraFonts2 {
     
-    [VB_Router setRegistTransaction:^(VB_Router * _Nonnull router) {
+    VB_Router.registTransactionPromise
+    .then(^(VB_Router* router){
         VB_ImportFontEntity* model = [[VB_ImportFontEntity alloc] init];
         [router bind:@"fonts" entity:model];
-        
-        [VB_FontLoader autoRegistFont].then(^(NSArray* fonts){
-            [VB_Router globalEntityForKey:@"fonts"].then(^(VB_ImportFontEntity*font) {
-              [font.importedFonts addObjectsFromArray:fonts];
-            });
+        return [VB_FontLoader autoRegistFont];
+    }).then(^(NSArray* fonts){
+        return [VB_Router globalEntityForKey:@"fonts"]
+        .then(^(VB_ImportFontEntity*font) {
+            [font.importedFonts addObjectsFromArray:fonts];
+            return @(font.importedFonts.count);
         });
-    }];
+    }).then(^(id num) {
+        NSLog(@"加载了%@个字体",num);
+    }).catch(^(NSException* e) {
+        NSLog(@"%@",e);
+    });
 }
+
+- (void)loadExtraFonts {
+    
+    VB_ImportFontEntity* model = [[VB_ImportFontEntity alloc] init];
+    [VB_Router bind:@"fonts" entity:model].then(^ {
+        return [VB_FontLoader autoRegistFont];
+    }).then(^(NSArray* fonts){
+        [model.importedFonts addObjectsFromArray:fonts];
+        return @(model.importedFonts.count);
+    }).then(^(id num) {
+        NSLog(@"加载了%@个字体",num);
+    }).catch(^(NSError* e) {
+        NSLog(@"%@",e);
+    });
+}
+
 
 
 

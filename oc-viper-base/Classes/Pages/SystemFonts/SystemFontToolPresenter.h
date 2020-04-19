@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SystemFontToolPresenter : VB_Presenter
 @property (nonatomic, assign) BOOL needSearchBar;
-//- (AnyPromise*)show:(__kindof UIViewController*)viewController;
-//@property (nonatomic, strong) PMKResolver resolver;
 @end
 
 NS_ASSUME_NONNULL_END

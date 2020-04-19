@@ -19,7 +19,7 @@ typedef enum : NSUInteger {
 @interface VB_IndexPathEntity : VB_Entity
 
 @property (nonatomic, strong) NSString* title;
-@property (nonatomic, strong) NSString* subTitle;
+@property (nonatomic, strong) NSString* detial;
 @property (nonatomic, strong) NSString* identifier;
 @property (nonatomic, strong) NSString* icon;
 @property (nonatomic, assign) UITableViewCellSelectionStyle selectionStyle;
@@ -28,6 +28,8 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) id data;
 @property (nonatomic, strong) NSMutableArray <__kindof VB_Entity*>* childrens;
+
+@property (nonatomic, assign) UITableViewCellEditingStyle editStyle;
 
 @end
 

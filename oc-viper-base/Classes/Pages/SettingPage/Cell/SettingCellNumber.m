@@ -32,7 +32,7 @@
 - (void)loadData:(SettingItemEntity*)data
 {
     RAC(data,value) = [[self.stepper rac_newValueChannelWithNilValue:data.value] takeUntil:[self rac_prepareForReuseSignal]];
-    RAC(self.numLabel, text) = [RACObserve(data, subTitle) takeUntil:[self rac_prepareForReuseSignal]];
+    RAC(self.numLabel, text) = [RACObserve(data, detial) takeUntil:[self rac_prepareForReuseSignal]];
     
     self.stepper.maximumValue = data.maxNumber;
     self.stepper.minimumValue = data.minNumber;

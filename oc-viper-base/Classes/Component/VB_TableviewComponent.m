@@ -10,7 +10,7 @@
 #import "VB_DataProvider.h"
 #import "VB_IndexPathEntity.h"
 #import "VB_Interactor.h"
-#import "VBCollectionChange.h"
+#import "VB_CollectionChange.h"
 #import "UITableViewCell+VB.h"
 #import "NSObject+PromiseAction.h"
 @import Masonry;
@@ -20,6 +20,7 @@
 {
     
 }
+
 @property (nonatomic, assign) UITableViewCellEditingStyle style;
 @property (nonatomic, weak) __kindof UITableView* view;
 @property (nonatomic, assign) BOOL empty;
@@ -36,29 +37,19 @@
     if (self) {
         self.useInsert = NO;
         self.useDelete = NO;
+        self.style = UITableViewStylePlain;
     }
     return self;
 }
 
 @synthesize fullSize,dataSource = _dataSource;
 
-
 - (UIView *)managedView
 {
-    UITableView* tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) style:UITableViewStylePlain];
+    UITableView* tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) style:self.tableStyle];
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.view = tableView;
     tableView.backgroundView = [[UIView alloc] initWithFrame:tableView.bounds];
-//    self.tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
-//    self.tipLabel.text = @"";
-//    self.tipLabel.cas_styleClass = @"tiplabel";
-//    [tableView.backgroundView addSubview:self.tipLabel];
-//    self.tipLabel.center = tableView.center;
-//
-//    [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(tableView.backgroundView);
-//        make.centerY.equalTo(tableView.backgroundView);
-//    }];
     tableView.delegate = self;
     tableView.dataSource = self;
     [tableView setTableFooterView:[UIView new]];
@@ -114,14 +105,12 @@
 - (void)configCell:(__kindof UITableViewCell*)cell entity:(VB_IndexPathEntity*)entity
 {
     cell.textLabel.text = entity.title;
-    cell.detailTextLabel.text = entity.subTitle;
+    cell.detailTextLabel.text = entity.detial;
     if (entity.icon) {
         cell.imageView.image = [UIImage imageNamed:entity.icon];
         if (!cell.imageView.image) {
               if (@available(iOS 13.0, *)) {
                   cell.imageView.image = [UIImage systemImageNamed:entity.icon];
-              } else {
-                  cell.imageView.image = [UIImage imageNamed:entity.icon];
               }
         }
     }
@@ -130,7 +119,13 @@
     if ([cell respondsToSelector:@selector(loadData:)]) {
         [cell loadData:entity];
     }
+    
+    if ([self.dataSource respondsToSelector:@selector(reuseEntity:)]) {
+        [self.dataSource reuseEntity:entity];
+    }
 }
+
+ 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -139,15 +134,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%s",__func__);
     self.interactor.paramPromise(@"tableViewDidSelect",indexPath).then(^(id needUpdate){
         if([needUpdate boolValue]) {
             [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         } else {
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            if (!self.editing) {
+                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            }
         }
     }).catch(^ (NSError* e){
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        if (!self.editing) {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
         NSLog(@"%@",e);
     });
 }
@@ -198,7 +196,7 @@
     }
 }
 
-- (void)applyChanges:(VBCollectionChange*)changes
+- (void)applyChanges:(VB_CollectionChange*)changes
 {
     UITableView *tableView = self.view;
     // Initial run of the query will pass nil for the change information
@@ -248,6 +246,10 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    VB_IndexPathEntity* entity = [self.dataSource objectAtIndexPath:indexPath];
+    if(entity.editStyle != UITableViewCellEditingStyleNone) {
+        return entity.editStyle;
+    }
     return self.style;
 }
 

@@ -21,9 +21,9 @@
     return self;
 }
 
-- (void)setSubTitle:(NSString *)subTitle
+- (void)setDetial:(NSString *)subTitle
 {
-    [super setSubTitle:subTitle];
+    [super setDetial:subTitle];
 }
 
 - (void)setValue:(id)value
@@ -61,10 +61,10 @@
         return;
     }
     if ([value isKindOfClass:[NSString class]]) {
-        self.subTitle = [value description];
+        self.detial = [value description];
     } else if([value isKindOfClass:[NSNumber class]]) {
         NSNumberFormatter* f = [self formatter];
-        self.subTitle = [f stringFromNumber:value];
+        self.detial = [f stringFromNumber:value];
     }
      
 }

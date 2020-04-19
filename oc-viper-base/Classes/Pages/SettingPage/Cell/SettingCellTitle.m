@@ -26,7 +26,7 @@
 - (void)loadData:(SettingItemEntity*)data
 {
     
-    RAC(self.detailTextLabel, text) = [RACObserve(data, subTitle) takeUntil:[self rac_prepareForReuseSignal]];
+    RAC(self.detailTextLabel, text) = [RACObserve(data, detial) takeUntil:[self rac_prepareForReuseSignal]];
 }
 
 @end

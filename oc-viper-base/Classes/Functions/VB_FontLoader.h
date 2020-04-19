@@ -24,14 +24,19 @@ NS_ASSUME_NONNULL_BEGIN
 @interface VB_FontLoader : NSObject
 
 + (NSArray* _Nullable)registerFontsAtPath:(NSString *)fontFilePath;
-+ (NSArray* _Nullable)registerFontsAtPaths:(NSArray <NSURL*> *)fontFilePaths API_DEPRECATED_WITH_REPLACEMENT("registerFontsAtPath:", macos(10.6, 10.14), ios(4.1, 12.0), watchos(2.0, 5.0), tvos(9.0, 12.0));
+
 + (AnyPromise*)autoRegistFont;
 + (AnyPromise*)unregistFont:(NSString*)file;
-+ (void)testShowAllFonts;
-+ (NSNumber*)fontSizeWithTextStyle:(UIFontTextStyle)style;
+
 + (AnyPromise*)fontsURL;
 + (AnyPromise*)importFont:(NSURL*)url;
 
+
++ (NSNumber*)fontSizeWithTextStyle:(UIFontTextStyle)style;
+
+
++ (NSArray* _Nullable)registerFontsAtPaths:(NSArray <NSURL*> *)fontFilePaths API_DEPRECATED_WITH_REPLACEMENT("registerFontsAtPath:", macos(10.6, 10.14), ios(4.1, 12.0), watchos(2.0, 5.0), tvos(9.0, 12.0));
++ (void)testShowAllFonts;
 @end
 
 NS_ASSUME_NONNULL_END

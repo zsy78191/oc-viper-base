@@ -8,10 +8,15 @@
 
 #import "VB_Component.h"
 
-@class VBCollectionChange;
+@class VB_CollectionChange;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VB_TableviewComponent : VB_Component <VB_ComponentTypeView_Protocol>
+{
+    
+}
+
+@property (nonatomic, assign) UITableViewStyle tableStyle;
 
 - (void)registCell:(Class)className forIdentifier:(NSString*)identifer;
 - (void)registHeader:(Class)className forIdentifier:(NSString*)identifer;

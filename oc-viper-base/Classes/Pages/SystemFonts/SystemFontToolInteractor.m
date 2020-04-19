@@ -91,7 +91,7 @@
               [a addObject:({
                  CustomCellEntity* entity = [self customEntity];
                  entity.title = obj.title;
-                 entity.subTitle = [obj.file lastPathComponent];
+                 entity.detial = [obj.file lastPathComponent];
                  entity;
               })];
             }];
@@ -131,7 +131,7 @@
         CustomCellEntity* entity = [self customEntity];
         entity.identifier = @"FontCell";
         entity.title = @"用户导入字体";
-        entity.subTitle = [NSString stringWithFormat:@"包含%@款字体",@(font.importedFonts.count)];
+        entity.detial = [NSString stringWithFormat:@"包含%@款字体",@(font.importedFonts.count)];
         return @[entity];
     });
 }
@@ -148,7 +148,7 @@
                  CustomCellEntity* entity = [self customEntity];
                  entity.identifier = @"FontCell";
                  entity.title = obj;
-                 entity.subTitle = [NSString stringWithFormat:@"包含%@款字体",@([UIFont fontNamesForFamilyName:obj].count)];
+                 entity.detial = [NSString stringWithFormat:@"包含%@款字体",@([UIFont fontNamesForFamilyName:obj].count)];
                  entity;
               })];
           }];
@@ -209,46 +209,50 @@
     }
 }
 
-
 - (void)importFonts:(id<RACSubscriber>)subscriber sender:(id)sender
 {
-    @weakify(self);
-    [self.fileSelector setFinishBlock:^(NSString * _Nonnull file, id<RACSubscriber>  _Nonnull subscriber) {
-        @strongify(self);
-        [AnyPromise promiseWithValue:@([self.dataSource has:@"file" value:file])]
-        .then(^(id has) {
-            if([has boolValue]) {
-                @throw [NSError errorWithDomain:@"FonteLoader" code:-101 userInfo:@{NSLocalizedDescriptionKey:@"此文件已经加载过"}];
-            }
-            return [AnyPromise promiseWithValue:has];
-        }).then(^(id needLoad){
-             return [VB_FontLoader importFont:[NSURL fileURLWithPath:file]];
-        }).then(^ (NSURL* url) {
-             [self.presenter hudSuccess:@"拷贝成功"];
-            VB_Font* f = [[VB_Font alloc] init];
-            f.title = [VB_FontLoader registerFontsAtPath:url.path].firstObject;
-            f.file = url.path;
-             return  f;
-        }).then(^ (VB_Font* f){
-            return [VB_Router globalEntityForKey:@"fonts"].then(^(VB_ImportFontEntity*font) {
-                [font.importedFonts addObject:f];
-            });
-        }).then(^{
-            [[self dataSource] removeAllObjects];
-            [self loadFontFamily];
-          
-        })
-        .catch(^(NSError* e) {
-            [self.presenter alert:[e localizedDescription]]
-            .then(^(id x) {
-                if ([x integerValue] == 1) {
-                    [self importFonts:subscriber sender:sender];
-                }
-            });
-        });
+    [self.fileSelector selectFileWithUTIs:@[@"public.font"]]
+    .then(^(NSString* file){
+        if (!file) {
+            @throw [NSError errorWithDomain:@"FonteLoader" code:-102 userInfo:@{NSLocalizedDescriptionKey:@"没有选择文件"}];
+        }
+        return [VB_FontLoader importFont:[NSURL fileURLWithPath:file]];
+    }).then(^ (NSURL* url) {
+         [self.presenter hudSuccess:@"拷贝成功"];
+        VB_Font* f = [[VB_Font alloc] init];
+        f.title = [VB_FontLoader registerFontsAtPath:url.path].firstObject;
+        f.file = url.path;
+         return  f;
+    }).then(^ (VB_Font* f){
+        VB_ImportFontEntity* font = [VB_Router entityForKey:@"fonts"];
+        if(font) {
+            [font.importedFonts addObject:f];
+        }
+    }).then(^{
+        [[self dataSource] removeAllObjects];
+        [self loadFontFamily];
         [subscriber sendCompleted];
-    }];
-    [self.fileSelector selectFont:subscriber param:@"public.font"];
+    }).catch(^ (NSError* e) {
+        if (e.code != -102) {
+            NSString* des = [e localizedDescription];
+            if (e.code == 516) {
+                des = NSLocalizedString(@"字体已经导入", nil);
+            }
+            [self.presenter alert:UIAlertControllerStyleAlert selections:@[NSLocalizedString(@"重新选择",nil)] config:^(UIAlertController * _Nonnull a) {
+                a.message = des;
+                a.title = NSLocalizedString(@"提示",nil);
+            } sender:nil]
+             .then(^(id x) {
+                 if ([x integerValue] == 2) {
+                     [self importFonts:subscriber sender:sender];
+                 } else {
+                     [subscriber sendCompleted];
+                 }
+            });
+        } else {
+            [subscriber sendCompleted];
+        }
+    });
 }
 
 - (void)tableViewDidDelete:(PMKResolver)resolver param:(NSIndexPath *)indexPath
@@ -263,6 +267,7 @@
                 *stop = YES;
             }
         }];
+        
         [font.importedFonts removeObject:f];
         return [VB_FontLoader unregistFont:f.file].then(^{
              return f;

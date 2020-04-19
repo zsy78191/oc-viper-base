@@ -12,6 +12,7 @@
 #import "SettingPagePresenter.h"
 #import "MySetting.h"
 #import "DemoSettingEntity.h"
+#import "VB_StandardListPresetner.h"
 @interface ViewController ()
 @property (nonatomic, strong) MySetting* setting;
 @property (nonatomic, strong) DemoSettingEntity* entity;
@@ -66,5 +67,20 @@
     });
 }
 
+- (IBAction)openList:(id)sender {
+    VB_StandardListPresetner* StandList = [[VB_StandardListPresetner alloc] init];
+    
+    [StandList setNeedData:^id _Nonnull(NSString * _Nonnull key) {
+        if([key isEqualToString:@"managedClass"]) {
+            return NSClassFromString(@"EntityItem");
+        } else if([key isEqualToString:@"tableStyle"]) {
+            return @(UITableViewStyleGrouped);
+        } else if([key isEqualToString:@"providerClass"]) {
+            return NSClassFromString(@"MyProvider");
+        }
+        return nil;
+    }];
+    [StandList show:self];
+}
 
 @end
