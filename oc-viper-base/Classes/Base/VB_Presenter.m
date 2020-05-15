@@ -182,6 +182,9 @@
                     make.right.equalTo(superview.mas_right).with.offset(-padding.right);
                 }];
             }
+            if ([component respondsToSelector:@selector(view:didAddToView:)]) {
+                [component view:v didAddToView:self.view];
+            }
             component.presenter = self;
             
             if ([self.interactor respondsToSelector:@selector(setupComponentPromise:)]) {
@@ -495,7 +498,6 @@
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     [super setEditing:editing animated:animated];
-    
 }
 
 - (AnyPromise *)didDismissHook
@@ -532,7 +534,7 @@
     return _needData;
 }
 
-- (id  _Nonnull (^)(NSString * _Nonnull, id _Nonnull))needDataDef
+- (id _Nonnull (^)(NSString * _Nonnull, id _Nonnull))needDataDef
 {
     return ^ (NSString * _Nonnull a, id _Nonnull b) {
         id v = self.needData(a);

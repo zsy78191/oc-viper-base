@@ -26,6 +26,9 @@ end
 target 'demoTests' do
    use_frameworks!
    inhibit_all_warnings!
+   pod 'RegexKitLite'
+   pod 'PromiseKit'
+   pod 'ReactiveObjC'
    pod 'MagicalRecord'
 end
 

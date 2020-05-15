@@ -221,6 +221,11 @@
     return self.view;
 }
 
+- (void)view:(nonnull UIView *)view didAddToView:(nonnull UIView *)superView {
+    
+}
+
+
 - (void)setUseDelete:(BOOL)useDelete
 {
     _useDelete = useDelete;

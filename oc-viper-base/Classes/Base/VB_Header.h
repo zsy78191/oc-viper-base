@@ -36,8 +36,6 @@ _Pragma("clang diagnostic pop") \
 @optional
 - (AnyPromise*)setupComponentPromise:(__kindof VB_Component*)component;
 
-
-
 @end
 
 #endif /* VB_Header_h */

@@ -1,9 +1,11 @@
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/MagicalRecord"
+EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/MagicalRecord" "${PODS_CONFIGURATION_BUILD_DIR}/PromiseKit" "${PODS_CONFIGURATION_BUILD_DIR}/ReactiveObjC" "${PODS_CONFIGURATION_BUILD_DIR}/RegexKitLite"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/MagicalRecord/MagicalRecord.framework/Headers"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/MagicalRecord/MagicalRecord.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/PromiseKit/PromiseKit.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/ReactiveObjC/ReactiveObjC.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RegexKitLite/RegexKitLite.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_CONFIGURATION_BUILD_DIR}/MagicalRecord/MagicalRecord.framework/Headers" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/MagicalRecord"
-OTHER_LDFLAGS = $(inherited) -framework "CoreData" -framework "MagicalRecord"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_CONFIGURATION_BUILD_DIR}/MagicalRecord/MagicalRecord.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/PromiseKit/PromiseKit.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/ReactiveObjC/ReactiveObjC.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/RegexKitLite/RegexKitLite.framework/Headers" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/MagicalRecord" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/PromiseKit" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/ReactiveObjC" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/RegexKitLite"
+OTHER_LDFLAGS = $(inherited) -l"icucore" -framework "CoreData" -framework "Foundation" -framework "MagicalRecord" -framework "PromiseKit" -framework "ReactiveObjC" -framework "RegexKitLite" -framework "UIKit"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.

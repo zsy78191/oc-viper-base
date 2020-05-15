@@ -85,7 +85,13 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface VB_Presenter : UIViewController <VB_HAS_InteractorProtocol,VB_Prensenter_Action_Protocol, VB_USE_Component, VB_Prensenter_Alert_Protocol,VB_Prensenter_HUD_Protocol,VB_Prensenter_Popup_Protocol,VB_Prensenter_Picker_Protocol>
+@interface VB_Presenter : UIViewController <                    VB_HAS_InteractorProtocol,
+        VB_Prensenter_Action_Protocol,
+        VB_USE_Component,
+        VB_Prensenter_Alert_Protocol,
+        VB_Prensenter_HUD_Protocol,
+        VB_Prensenter_Popup_Protocol,
+        VB_Prensenter_Picker_Protocol>
 
 /// 双向绑定
 /// @param obj 对象
@@ -105,6 +111,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 注册外部数据，一般外部调用
 @property (nonatomic, strong, nullable) id (^needData)(NSString* key);
+
+/// 带默认值
 @property (nonatomic, strong, nullable) id (^needDataDef)(NSString* key, id defaultValue);
 
 #pragma mark - Life Time Hook

@@ -9,6 +9,8 @@
 #import <XCTest/XCTest.h>
 #import "EntityItem+CoreDataClass.h"
 @import MagicalRecord;
+#import "VB_CoreDataInteractor.h"
+
 @interface demoTests : XCTestCase
 
 @end
@@ -26,8 +28,13 @@
 - (void)testExample {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
-    NSInteger c = [EntityItem MR_countOfEntities];
-    NSLog(@"||| %@",@(c));
+//    NSInteger c = [EntityItem MR_countOfEntities];
+//    NSLog(@"||| %@",@(c));
+    
+    VB_CoreDataInteractor* c = [[VB_CoreDataInteractor alloc] init];
+    [c vb_setManageClassName:@"123"];
+    
+    
 }
 
 - (void)testPerformanceExample {

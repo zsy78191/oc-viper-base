@@ -10,8 +10,36 @@
 #import "VB_Component.h"
 #import "VB_Presenter.h"
 
+@interface VB_Interactor ()
+{
+    
+}
+@property (nonatomic, strong) NSHashTable* childrens;
+@end
+
 
 @implementation VB_Interactor
+
+- (AnyPromise *)setupInteractor:(VB_Interactor*)interactor
+{
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull r) {
+        if (interactor) {
+            [self.childrens addObject:interactor];
+            interactor.parentInteractor = self;
+            r(interactor);
+        } else {
+            r(nil);
+        }
+    }];
+}
+
+- (NSHashTable *)childrens
+{
+    if (!_childrens) {
+        _childrens = [[NSHashTable alloc] initWithOptions:NSPointerFunctionsStrongMemory capacity:10];
+    }
+    return _childrens;
+}
 
 - (id)entityForKey:(NSString *)key
 {
@@ -25,7 +53,7 @@
 
 - (void)setupComponent:(__kindof VB_Component *)component
 {
-    NSLog(@"N");
+//    NSLog(@"N");
 }
 
 - (void)loadComponents {
@@ -58,6 +86,7 @@
 
 - (void)dealloc
 {
+    [self.childrens removeAllObjects];
     NSLog(@"** %@ %s",[self class],__func__);
 }
 
@@ -68,7 +97,6 @@
 
 - (id)preloadData
 {
-    
     return @(YES);
 }
 

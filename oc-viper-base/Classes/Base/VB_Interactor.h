@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @class VB_Presenter;
 @class VB_Component;
-
+@class VB_Interactor;
 
 
 /// TableView相关事件
@@ -30,20 +30,21 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) VB_Interactor* parentInteractor;
 @property (nonatomic, weak) VB_Presenter* presenter;
 
-
-
 - (AnyPromise*)ensure:(id)item isKindOf:(Class)class;
+
+/// 加载子Interactor
+/// @param interactor interactor实例
+- (AnyPromise*)setupInteractor:(VB_Interactor*)interactor;
 
 #pragma mark - Lifecircle
 
+/// 预加载数据，仅与Presenter绑定时触发，作为子Interactor不触发
 - (id)preloadData;
-
 
 #pragma mark - 例子
 /// 一个RAC订阅者Selector的声明例子
 /// @param subscriber 订阅者
 - (void)action:(id<RACSubscriber>)subscriber;
-
 
 @end
 

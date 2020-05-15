@@ -24,7 +24,7 @@
 - (void)configBeforeInsertToDatabase:(EntityItem*)item
 {
     item.title = [@"Titie - " stringByAppendingString:[[NSDate date]description]];
-     EntityItem*  i = [EntityItem MR_findFirstOrderedByAttribute:@"sort" ascending:NO];
+    EntityItem*  i = [EntityItem MR_findFirstOrderedByAttribute:@"sort" ascending:NO];
     if(!i) {
         item.sort = 1;
     } else {

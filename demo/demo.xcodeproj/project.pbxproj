@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		87C084601DE16A950AA64004 /* Pods_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFCE8ACB283321834DD5B72D /* Pods_demo.framework */; };
 		BFC2C44048D750331B79C423 /* Pods_demoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C142F2F13499C5333AAF37EE /* Pods_demoTests.framework */; };
+		D4213D81246E75C00011CB65 /* VB_PhotoSelectorInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = D4213D7F246E75C00011CB65 /* VB_PhotoSelectorInteractor.m */; };
 		D45E059A244C00BE00FC5DB8 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D45E0598244C00BE00FC5DB8 /* Model.xcdatamodeld */; };
 		D45E059E244C016A00FC5DB8 /* VB_StandardListPresetner.m in Sources */ = {isa = PBXBuildFile; fileRef = D45E059D244C016A00FC5DB8 /* VB_StandardListPresetner.m */; };
 		D45E05A1244C018200FC5DB8 /* VB_StandardListInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = D45E05A0244C018200FC5DB8 /* VB_StandardListInteractor.m */; };
@@ -16,6 +17,9 @@
 		D45E05AF244C1AB800FC5DB8 /* demoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D45E05AE244C1AB800FC5DB8 /* demoTests.m */; };
 		D45E05B6244C1B6300FC5DB8 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D45E0598244C00BE00FC5DB8 /* Model.xcdatamodeld */; };
 		D45E05C0244C4F7700FC5DB8 /* MyProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = D45E05BF244C4F7700FC5DB8 /* MyProvider.m */; };
+		D45E05C3244EC9D700FC5DB8 /* VB_CoreDataInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = D45E05C2244EC9D700FC5DB8 /* VB_CoreDataInteractor.m */; };
+		D45E05C4244ED91900FC5DB8 /* VB_CoreDataInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = D45E05C2244EC9D700FC5DB8 /* VB_CoreDataInteractor.m */; };
+		D45E05C5244ED9C400FC5DB8 /* NSObject+Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE338A243B5AC400ED3014 /* NSObject+Runtime.m */; };
 		D468FEAC243DF3AA007289B3 /* MySetting.m in Sources */ = {isa = PBXBuildFile; fileRef = D468FEAB243DF3AA007289B3 /* MySetting.m */; };
 		D4694311243C3B1E00E26D4A /* UIViewController+Router.m in Sources */ = {isa = PBXBuildFile; fileRef = D4694310243C3B1E00E26D4A /* UIViewController+Router.m */; };
 		D4694313243C3BBE00E26D4A /* oc-viper-base.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D4694312243C3BBE00E26D4A /* oc-viper-base.podspec */; };
@@ -93,6 +97,8 @@
 		98911CC3DCC2A18A14DF4D06 /* Pods-demoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demoTests.release.xcconfig"; path = "Target Support Files/Pods-demoTests/Pods-demoTests.release.xcconfig"; sourceTree = "<group>"; };
 		B83887E090C0129840AC56A5 /* Pods-demoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demoTests.debug.xcconfig"; path = "Target Support Files/Pods-demoTests/Pods-demoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C142F2F13499C5333AAF37EE /* Pods_demoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_demoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4213D7F246E75C00011CB65 /* VB_PhotoSelectorInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VB_PhotoSelectorInteractor.m; sourceTree = "<group>"; };
+		D4213D80246E75C00011CB65 /* VB_PhotoSelectorInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VB_PhotoSelectorInteractor.h; sourceTree = "<group>"; };
 		D45E0599244C00BE00FC5DB8 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		D45E059C244C016A00FC5DB8 /* VB_StandardListPresetner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VB_StandardListPresetner.h; sourceTree = "<group>"; };
 		D45E059D244C016A00FC5DB8 /* VB_StandardListPresetner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VB_StandardListPresetner.m; sourceTree = "<group>"; };
@@ -105,6 +111,8 @@
 		D45E05B0244C1AB800FC5DB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D45E05BE244C4F7700FC5DB8 /* MyProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyProvider.h; sourceTree = "<group>"; };
 		D45E05BF244C4F7700FC5DB8 /* MyProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyProvider.m; sourceTree = "<group>"; };
+		D45E05C1244EC9D700FC5DB8 /* VB_CoreDataInteractor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VB_CoreDataInteractor.h; sourceTree = "<group>"; };
+		D45E05C2244EC9D700FC5DB8 /* VB_CoreDataInteractor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VB_CoreDataInteractor.m; sourceTree = "<group>"; };
 		D468FEAA243DF3AA007289B3 /* MySetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySetting.h; sourceTree = "<group>"; };
 		D468FEAB243DF3AA007289B3 /* MySetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySetting.m; sourceTree = "<group>"; };
 		D469430F243C3B1E00E26D4A /* UIViewController+Router.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Router.h"; sourceTree = "<group>"; };
@@ -486,8 +494,12 @@
 		D4EE334E243B5AC400ED3014 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				D4213D80246E75C00011CB65 /* VB_PhotoSelectorInteractor.h */,
+				D4213D7F246E75C00011CB65 /* VB_PhotoSelectorInteractor.m */,
 				D4EE334F243B5AC400ED3014 /* VB_FileSelectorInteractor.h */,
 				D4EE3350243B5AC400ED3014 /* VB_FileSelectorInteractor.m */,
+				D45E05C1244EC9D700FC5DB8 /* VB_CoreDataInteractor.h */,
+				D45E05C2244EC9D700FC5DB8 /* VB_CoreDataInteractor.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -812,6 +824,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D45E05C5244ED9C400FC5DB8 /* NSObject+Runtime.m in Sources */,
+				D45E05C4244ED91900FC5DB8 /* VB_CoreDataInteractor.m in Sources */,
 				D45E05AF244C1AB800FC5DB8 /* demoTests.m in Sources */,
 				D45E05B6244C1B6300FC5DB8 /* Model.xcdatamodeld in Sources */,
 			);
@@ -843,6 +857,7 @@
 				D4EE33BF243B5AC400ED3014 /* SettingPagePresenter.m in Sources */,
 				D4EE339D243B5AC400ED3014 /* VB_TablePicker_Component.m in Sources */,
 				D4EE33A5243B5AC400ED3014 /* VB_TableviewComponent.m in Sources */,
+				D4213D81246E75C00011CB65 /* VB_PhotoSelectorInteractor.m in Sources */,
 				D4EE33AD243B5AC400ED3014 /* UIControl+VB.m in Sources */,
 				D4EE33C8243B5AC400ED3014 /* VB_DataProvider.m in Sources */,
 				D4EE33C0243B5AC400ED3014 /* SystemFontToolPresenter.m in Sources */,
@@ -852,6 +867,7 @@
 				D4EE33C6243B5AC400ED3014 /* VB_ArrayProvider.m in Sources */,
 				D4EE3394243B5AC400ED3014 /* VB_IndexPathEntity.m in Sources */,
 				D4EE339F243B5AC400ED3014 /* VB_Picker_Component.m in Sources */,
+				D45E05C3244EC9D700FC5DB8 /* VB_CoreDataInteractor.m in Sources */,
 				D4EE339C243B5AC400ED3014 /* VB_Component.m in Sources */,
 				D468FEAC243DF3AA007289B3 /* MySetting.m in Sources */,
 				D4EE33C7243B5AC400ED3014 /* NSObject+Runtime.m in Sources */,

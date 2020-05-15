@@ -23,7 +23,11 @@
                
            }];
        } else {
-           [[self navigationController] popToViewController:self animated:YES];
+           if ([self.navigationController.viewControllers containsObject:self]) {
+               [[self navigationController] popToViewController:self animated:YES];
+           } else {
+               [[self navigationController] popToRootViewControllerAnimated:YES];
+           }
        }
    }
 }

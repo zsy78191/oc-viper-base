@@ -37,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) __kindof VB_DataProvider* _Nullable dataSource;
 - (void)applyChanges:(VB_CollectionChange* _Nullable)changes;
 
+- (void)view:(UIView*)view didAddToView:(UIView*)superView;
+
 @end
 
 @protocol VB_ComponentTypeAlert_Protocol <NSObject>
